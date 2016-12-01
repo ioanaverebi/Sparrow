@@ -1,0 +1,51 @@
+grammar org.refactor.ModelEditor with org.eclipse.xtext.common.Terminals
+
+generate modelEditor "http://www.refactor.org/ModelEditor"
+
+
+Model:
+	imports+=Import*
+	classes+=Class*;
+
+Import:
+  'import' importedNamespace = QualifiedNameWithWildcard;
+
+QualifiedNameWithWildcard:
+	QualifiedName '.*'?;
+
+QualifiedName:
+	ID ('.' ID)*;
+	
+Class:
+	modifier=(ClassModifier)? 'class' name=ID ('extends' superType = [Class | QualifiedName])?
+	(BEGIN
+		(fields += Field)*
+		(methods += Method)*
+	END)?;
+	
+Field:
+	modifier=(MemberModifier)? name=ID (':' type=[Class | QualifiedName])?;
+	
+Method:
+	modifier=(MemberModifier)? name=ID '(' (types+=[Class | QualifiedName] (',' types+=[Class | QualifiedName])*)? ')' (':' type=[Class | QualifiedName])?
+	(BEGIN
+		(loc=INT 'lines' 'of' 'code')?
+		(cyclo=INT 'cyclo')?
+		(accesses += Access)*
+		(calls += Call)*
+	END)?;
+
+MemberModifier:
+	'public' | 'private' | 'protected' | 'constant';
+	
+ClassModifier:
+	'public' | 'private' | 'constant';
+
+Access:
+	accesses=INT ('access' | 'accesses') 'to' field=[Field | QualifiedName];
+	
+Call:
+	calls=INT ('call' | 'calls') 'to' method=[Method | QualifiedName] '(' ')';
+
+terminal BEGIN: 'synthetic:BEGIN';  // increase indentation
+terminal END: 'synthetic:END';      // decrease indentation

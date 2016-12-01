@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="outcodeBuilder"
+         name="ModelExtractor Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true"
+            isConfigurable="true">
+         <run
+               class="org.lrg.outcode.builder.ModelExtractorBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="outcodeNature"
+         name="OutCode Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.lrg.outcode.builder.OutcodeNature">
+         </run>
+      </runtime>
+      <builder
+            id="OutCode.outcodeBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="OutCode Project Nature commands"
+            id="OutCode.outcodeNature.category">
+      </category>
+      <command
+            name="Add/RemoveOutCode Project Nature"
+            defaultHandler="org.lrg.outcode.builder.AddRemoveOutcodeNatureHandler"
+            categoryId="OutCode.outcodeNature.category"
+            id="OutCode.addRemoveOutcodeNature">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+             locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="OutCode.addRemoveOutcodeNature"
+               label="Disable outCode builder"
+               style="push">
+         </command>
+         <command
+               commandId="OutCode.addRemoveOutcodeNature"
+               label="Enable outCode builder"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <command
+               commandId="outCode.launcher"
+               label="Extract reFactor model"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="outcode.runner"
+            defaultHandler="org.lrg.outcode.builder.CodeExtractionLauncher"
+            id="outCode.launcher"
+            name="Extract reFactor model">
+      </command>
+      <category
+            id="outcode.runner"
+            name="reFactor">
+      </category>
+   </extension>
+</plugin>
