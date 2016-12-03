@@ -28,6 +28,9 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.lrg.outcode.builder.ast.FieldDetails;
 import org.lrg.outcode.builder.ast.MethodDetails;
 import org.lrg.outcode.builder.ast.OutCodeVisitor;
@@ -37,10 +40,23 @@ public class ModelVisitor {
 
 	public void visitIJavaProject(IJavaProject project) throws CoreException, JavaModelException {
 		long startTime = new Date().getTime();
-		IProject xtextProject = initialize(project.getElementName()+"Ioana");
-		visitIPackageFragments(project, xtextProject);
-		long endTime = new Date().getTime();
-		System.out.println("Model building took " + new Date(endTime - startTime).toString());
+		String initialValue = project.getElementName()+"-mapping";
+		InputDialog dialog = new InputDialog(null, "Project name", "Project name", initialValue, new IInputValidator() {
+			
+			@Override
+			public String isValid(String newText) {
+				if (newText == null || newText.trim().equals(""))
+					return "Please specify a valid project name";
+				else return null;
+			}
+		}); 
+		int result = dialog.open();
+		if (result == 0){
+			IProject xtextProject = initialize(dialog.getValue());
+			visitIPackageFragments(project, xtextProject);
+			long endTime = new Date().getTime();
+			System.out.println("Model building took " + new Date(endTime - startTime).toString());
+		}
 	}
 
 	private void visitIPackageFragments(IJavaProject javaProject, IProject xtextProject) throws JavaModelException {
@@ -152,7 +168,7 @@ public class ModelVisitor {
 	private String serializeMethod(int indentation, IMethod method, OutCodeVisitor visitor) {
 		String handleIdentifier = method.getHandleIdentifier();
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
-		
+
 		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName()+"()";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
@@ -164,12 +180,12 @@ public class ModelVisitor {
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
-		
+
 		content += addLine(indentation, details.getCyclo() + " cyclo");
-		
+
 		Map<IField, Integer> accesses = details.getAccesses();
 		Map<IMethod, Integer> calls = details.getCalls();
-		
+
 		for (IField aField : accesses.keySet()) {
 			Integer howMany = accesses.get(aField);
 			String access = howMany + " ";
@@ -199,7 +215,7 @@ public class ModelVisitor {
 		indentation -= 1;
 		return content;
 	}
-	
+
 	private String getModifier(int modifiers){
 		if (Flags.isPublic(modifiers) && Flags.isStatic(modifiers) && Flags.isFinal(modifiers))
 			return "constant ";

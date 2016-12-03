@@ -40,9 +40,8 @@ public class FeatureEnvyChecker implements IRuleChecker{
 			dataProviders.add((Class) field.eContainer());
 		}
 		dataProviders.remove(parentClass);
-		int internalFieldsCount = parentClass.getFields().size();
 		if (internalAccesses > Constants.FEW) return false;
-		if ((double)internalFieldsCount/(double)accesses.size() > 0.33) return false;
+		if ((double)internalAccesses/(double)accesses.size() > 0.33) return false;
 		if (dataProviders.size() > Constants.FEW) return false;
 		return true;
 	}
