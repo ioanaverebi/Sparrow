@@ -8,6 +8,9 @@
 ###Installation instructions
 *reFactor* is an Eclipse plugin. To install it, use the *Install New Software* menu option in Eclipse. Then use the following update site URL to install the plugin: https://raw.githubusercontent.com/ioanaverebi/reFactor/master/reFactor.updatesite/site.xml
 
+![Update site installation](https://github.com/ioanaverebi/reFactor/blob/master/resources/install.png "Update site installation" )
+
+
 ###Usage instructions
 
 
