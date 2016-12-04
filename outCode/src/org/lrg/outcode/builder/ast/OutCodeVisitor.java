@@ -76,7 +76,7 @@ public class OutCodeVisitor extends ASTVisitor {
 		if (returnType2 != null) {
 			ITypeBinding typeBinding = returnType2.resolveBinding();
 			IJavaElement returnType = typeBinding.getJavaElement();
-			if (returnType != null){
+			if (returnType instanceof IType){
 				methodDetails.setReturnType((IType) returnType);
 			}
 		}

@@ -178,7 +178,7 @@ public class ModelVisitor {
 	private String serializeMethod(int indentation, IMethod method, OutCodeVisitor visitor) {
 		String handleIdentifier = method.getHandleIdentifier();
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
-
+		if (details == null) return "";
 		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName()+"()";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
@@ -241,6 +241,7 @@ public class ModelVisitor {
 	private String serializeField(int indentation, IField field, OutCodeVisitor visitor) {
 		String handleIdentifier = field.getHandleIdentifier();
 		FieldDetails details = (FieldDetails) visitor.getDetails(handleIdentifier);
+		if (details == null) return "";
 		return addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
 	}
 
