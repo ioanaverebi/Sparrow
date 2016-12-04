@@ -20,7 +20,7 @@
 5. Edit the new project as you see fit.
 6. A marker will appear for each of the elements that are affected by a Design Flaw. These are listed in the Errow View, too.
 
-
+![Design flaws](https://github.com/ioanaverebi/reFactor/blob/master/resources/design_flaws.png "Design flaw markers" )
 
 
 ##Contributing
