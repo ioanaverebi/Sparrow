@@ -13,6 +13,15 @@
 
 ###Usage instructions
 
+1. Prepare a Java that has no compilation errors project.
+2. Right click on it in Package Explorer and choose the *Extract reFactor Model* option
+3. Give the new project a name
+4. A new reFactor project will be generated
+5. Edit the new project as you see fit.
+6. A marker will appear for each of the elements that are affected by a Design Flaw. These are listed in the Errow View, too.
+
+
+
 
 ##Contributing
 Released under the MIT license.
