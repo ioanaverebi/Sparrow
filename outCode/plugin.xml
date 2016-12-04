@@ -62,8 +62,18 @@
             locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
          <command
                commandId="outCode.launcher"
-               label="Extract reFactor model"
+               label="Extract reFactor Model"
                style="push">
+            <visibleWhen>
+                  <with variable="activeMenuSelection">
+			      <iterate ifEmpty="false">
+			         <or>
+			            <adapt type="org.eclipse.jdt.core.IJavaProject">
+			            </adapt>
+			         </or>
+			      </iterate>
+			   </with>
+            </visibleWhen>
          </command>
       </menuContribution>
    </extension>
