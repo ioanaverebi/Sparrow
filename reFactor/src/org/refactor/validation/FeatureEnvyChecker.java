@@ -18,7 +18,6 @@ public class FeatureEnvyChecker implements IRuleChecker{
 
 	@Override
 	public String getDetails() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -40,6 +39,7 @@ public class FeatureEnvyChecker implements IRuleChecker{
 			dataProviders.add((Class) field.eContainer());
 		}
 		dataProviders.remove(parentClass);
+		if (accesses.size() == 0) return false;
 		if (internalAccesses > Constants.FEW) return false;
 		if ((double)internalAccesses/(double)accesses.size() > 0.33) return false;
 		if (dataProviders.size() > Constants.FEW) return false;

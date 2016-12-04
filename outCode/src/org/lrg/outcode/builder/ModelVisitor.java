@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -30,7 +31,6 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.lrg.outcode.builder.ast.FieldDetails;
 import org.lrg.outcode.builder.ast.MethodDetails;
 import org.lrg.outcode.builder.ast.OutCodeVisitor;
@@ -42,7 +42,7 @@ public class ModelVisitor {
 		long startTime = new Date().getTime();
 		String initialValue = project.getElementName()+"-mapping";
 		InputDialog dialog = new InputDialog(null, "Project name", "Project name", initialValue, new IInputValidator() {
-			
+
 			@Override
 			public String isValid(String newText) {
 				if (newText == null || newText.trim().equals(""))
@@ -61,13 +61,24 @@ public class ModelVisitor {
 
 	private void visitIPackageFragments(IJavaProject javaProject, IProject xtextProject) throws JavaModelException {
 		for (IPackageFragment aPackage : javaProject.getPackageFragments()) {
-			if (aPackage.getKind() == IPackageFragmentRoot.K_SOURCE){
-				String packageName = "default";
-				if (!aPackage.isDefaultPackage())
-					packageName = aPackage.getElementName();
-				IFolder newFolder = createFolder(packageName, xtextProject);
-				visitICompilationUnits(aPackage, newFolder);
+			IJavaElement parent = aPackage.getParent();
+			if (parent instanceof IPackageFragmentRoot){
+				IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot)parent;
+				if (fragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE && !fragmentRoot.isReadOnly()){
+					String fragmentRootName = parent.getElementName();
+					IFolder sourceFolder = createFolder(xtextProject.getFolder(fragmentRootName), xtextProject);
+					if (aPackage.getKind() == IPackageFragmentRoot.K_SOURCE){
+						String packageName = "default";
+						if (!aPackage.isDefaultPackage()){
+							packageName = aPackage.getElementName();
+							IFolder packageFolder = createFolder(sourceFolder.getFolder(packageName), xtextProject);
+							visitICompilationUnits(aPackage, packageFolder);
+						}
+						else visitICompilationUnits(aPackage, sourceFolder);
+					}
+				}
 			}
+
 		}
 	}
 
@@ -138,8 +149,7 @@ public class ModelVisitor {
 		return project;
 	}
 
-	private IFolder createFolder(String folderName, IProject xtextProject) {
-		IFolder folder = xtextProject.getFolder("src");
+	private IFolder createFolder(IFolder folder, IProject xtextProject) {
 		if (!folder.exists())
 			try {
 				folder.create(IResource.NONE, true, null);

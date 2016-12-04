@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.SwitchCase;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.WhileStatement;
@@ -71,10 +72,13 @@ public class OutCodeVisitor extends ASTVisitor {
 		String handleIdentifier = currentMethod.getHandleIdentifier();
 		allDetails.put(handleIdentifier, methodDetails);
 		methodDetails.setModifiers(methodDeclaration.getModifiers());
-		ITypeBinding typeBinding = methodDeclaration.getReturnType2().resolveBinding();
-		IJavaElement returnType = typeBinding.getJavaElement();
-		if (returnType != null){
-			methodDetails.setReturnType((IType) returnType);
+		Type returnType2 = methodDeclaration.getReturnType2();
+		if (returnType2 != null) {
+			ITypeBinding typeBinding = returnType2.resolveBinding();
+			IJavaElement returnType = typeBinding.getJavaElement();
+			if (returnType != null){
+				methodDetails.setReturnType((IType) returnType);
+			}
 		}
 		return true;
 	}
@@ -198,24 +202,6 @@ public class OutCodeVisitor extends ASTVisitor {
 	public IDetails getDetails(String handleIdentifier) {
 		return allDetails.get(handleIdentifier);
 	}
-
-//	public Map<IMethod, Integer> getCalls(String handleIdentifier) {
-//		return calls.get(handleIdentifier);
-//	}
-//
-//	public Integer getModifiers(String handleIdentifier) {
-//		Integer modifierValue = modifiers.get(handleIdentifier);
-//		if (modifierValue != null)
-//			return modifierValue;
-//		return 0;
-//	}
-//
-//	public Integer getCyclo(String handleIdentifier){
-//		Integer cycloValue = cyclo.get(handleIdentifier);
-//		if (cycloValue != null)
-//			return cycloValue;
-//		return 0;
-//	}
 
 	public void process(ASTNode methodDeclaration) {
 		methodDeclaration.accept(this);
