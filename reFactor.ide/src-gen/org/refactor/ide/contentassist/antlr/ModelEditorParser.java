@@ -42,6 +42,8 @@ public class ModelEditorParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getQualifiedNameAccess().getAlternatives_0(), "rule__QualifiedName__Alternatives_0");
+					put(grammarAccess.getQualifiedNameAccess().getAlternatives_1(), "rule__QualifiedName__Alternatives_1");
 					put(grammarAccess.getMemberModifierAccess().getAlternatives(), "rule__MemberModifier__Alternatives");
 					put(grammarAccess.getClassModifierAccess().getAlternatives(), "rule__ClassModifier__Alternatives");
 					put(grammarAccess.getAccessAccess().getAlternatives_1(), "rule__Access__Alternatives_1");
@@ -50,7 +52,7 @@ public class ModelEditorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
-					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
+					put(grammarAccess.getQualifiedNameAccess().getGroup_1_0(), "rule__QualifiedName__Group_1_0__0");
 					put(grammarAccess.getClassAccess().getGroup(), "rule__Class__Group__0");
 					put(grammarAccess.getClassAccess().getGroup_3(), "rule__Class__Group_3__0");
 					put(grammarAccess.getClassAccess().getGroup_4(), "rule__Class__Group_4__0");

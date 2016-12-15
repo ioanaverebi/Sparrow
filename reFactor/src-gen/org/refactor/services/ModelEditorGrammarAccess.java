@@ -96,29 +96,45 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.refactor.ModelEditor.QualifiedName");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cSTRINGTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_0_1 = (RuleCall)cGroup_1_0.eContents().get(1);
+		private final RuleCall cSTRINGTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
 		
 		//QualifiedName:
-		//	ID ('.' ID)*;
+		//	(ID | STRING) ('.' ID | STRING)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//ID ('.' ID)*
+		//(ID | STRING) ('.' ID | STRING)*
 		public Group getGroup() { return cGroup; }
 		
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		//(ID | STRING)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
-		//('.' ID)*
-		public Group getGroup_1() { return cGroup_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
+		
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_0_1() { return cSTRINGTerminalRuleCall_0_1; }
+		
+		//('.' ID | STRING)*
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		
+		//'.' ID
+		public Group getGroup_1_0() { return cGroup_1_0; }
 		
 		//'.'
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		public Keyword getFullStopKeyword_1_0_0() { return cFullStopKeyword_1_0_0; }
 		
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
+		public RuleCall getIDTerminalRuleCall_1_0_1() { return cIDTerminalRuleCall_1_0_1; }
+		
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_1_1() { return cSTRINGTerminalRuleCall_1_1; }
 	}
 	public class ClassElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.refactor.ModelEditor.Class");
@@ -666,7 +682,7 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//QualifiedName:
-	//	ID ('.' ID)*;
+	//	(ID | STRING) ('.' ID | STRING)*;
 	public QualifiedNameElements getQualifiedNameAccess() {
 		return pQualifiedName;
 	}

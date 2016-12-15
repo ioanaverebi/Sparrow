@@ -204,25 +204,45 @@ ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 	leaveRule();
 }:
 	(
-		this_ID_0=RULE_ID
-		{
-			$current.merge(this_ID_0);
-		}
-		{
-			newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0());
-		}
 		(
-			kw=FullStop
+			this_ID_0=RULE_ID
 			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0());
-			}
-			this_ID_2=RULE_ID
-			{
-				$current.merge(this_ID_2);
+				$current.merge(this_ID_0);
 			}
 			{
-				newLeafNode(this_ID_2, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1());
+				newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0_0());
+			}
+			    |
+			this_STRING_1=RULE_STRING
+			{
+				$current.merge(this_STRING_1);
+			}
+			{
+				newLeafNode(this_STRING_1, grammarAccess.getQualifiedNameAccess().getSTRINGTerminalRuleCall_0_1());
+			}
+		)
+		(
+			(
+				kw=FullStop
+				{
+					$current.merge(kw);
+					newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0_0());
+				}
+				this_ID_3=RULE_ID
+				{
+					$current.merge(this_ID_3);
+				}
+				{
+					newLeafNode(this_ID_3, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_0_1());
+				}
+			)
+			    |
+			this_STRING_4=RULE_STRING
+			{
+				$current.merge(this_STRING_4);
+			}
+			{
+				newLeafNode(this_STRING_4, grammarAccess.getQualifiedNameAccess().getSTRINGTerminalRuleCall_1_1());
 			}
 		)*
 	)

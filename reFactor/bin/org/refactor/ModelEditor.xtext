@@ -14,7 +14,7 @@ QualifiedNameWithWildcard:
 	QualifiedName '.*'?;
 
 QualifiedName:
-	ID ('.' ID)*;
+	(ID | STRING) ('.' ID | STRING)*;
 	
 Class:
 	modifier=(ClassModifier)? 'class' name=ID ('extends' superType = [Class | QualifiedName])?
