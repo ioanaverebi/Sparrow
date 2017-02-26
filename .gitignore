@@ -1,2 +1,9 @@
 .metadata
 *.class
+.xtendbin
+.xtend
+._trace
+/reFactor/xtend-gen/**
+/reFactor/bin/**
+/reFactor.ui/xtend-gen/**
+/reFactor.ui/bin/**
