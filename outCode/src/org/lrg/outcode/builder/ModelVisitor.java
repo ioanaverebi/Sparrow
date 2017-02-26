@@ -15,7 +15,12 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
@@ -38,51 +43,76 @@ import org.lrg.outcode.builder.ast.OutCodeVisitor;
 public class ModelVisitor {
 	private ASTParser theParser = ASTParser.newParser(AST.JLS8);
 
-	public void visitIJavaProject(IJavaProject project) throws CoreException, JavaModelException {
-		long startTime = new Date().getTime();
-		String initialValue = project.getElementName()+"-mapping";
+	public void visitIJavaProject(final IJavaProject project) throws CoreException, JavaModelException {
+
+		String initialValue = project.getElementName() + "-mapping";
 		InputDialog dialog = new InputDialog(null, "Project name", "Project name", initialValue, new IInputValidator() {
 
 			@Override
 			public String isValid(String newText) {
 				if (newText == null || newText.trim().equals(""))
 					return "Please specify a valid project name";
-				else return null;
+				else
+					return null;
 			}
-		}); 
-		int result = dialog.open();
-		if (result == 0){
-			IProject xtextProject = initialize(dialog.getValue());
-			visitIPackageFragments(project, xtextProject);
-			long endTime = new Date().getTime();
-			System.out.println("Model building took " + new Date(endTime - startTime).toString());
-		}
+		});
+		final int result = dialog.open();
+		final String value = dialog.getValue();
+
+		Job extractModel = new Job("Extracting model") {
+
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				if (result == 0) {
+					long startTime = new Date().getTime();
+					IProject xtextProject = initialize(value);
+					try {
+						visitIPackageFragments(monitor, project, xtextProject);
+					} catch (JavaModelException e) {
+						e.printStackTrace();
+					}
+					long endTime = new Date().getTime();
+					System.out.println("Model building took " + new Date(endTime - startTime).toString());
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		extractModel.schedule();
+
 	}
 
-	private void visitIPackageFragments(IJavaProject javaProject, IProject xtextProject) throws JavaModelException {
+	private void visitIPackageFragments(IProgressMonitor monitor, IJavaProject javaProject, IProject xtextProject) throws JavaModelException {
+		int ticks = 0;
+		for (IPackageFragment aPackage : javaProject.getPackageFragments()) {
+			if (aPackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
+				ticks += aPackage.getCompilationUnits().length;
+			}
+		}
+		SubMonitor subMonitor = SubMonitor.convert(monitor, ticks);
 		for (IPackageFragment aPackage : javaProject.getPackageFragments()) {
 			IJavaElement parent = aPackage.getParent();
-			if (parent instanceof IPackageFragmentRoot){
-				IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot)parent;
-				if (fragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE && !fragmentRoot.isReadOnly()){
+			if (parent instanceof IPackageFragmentRoot) {
+				IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot) parent;
+				if (fragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE && !fragmentRoot.isReadOnly()) {
 					String fragmentRootName = parent.getElementName();
 					IFolder sourceFolder = createFolder(xtextProject.getFolder(fragmentRootName), xtextProject);
-					if (aPackage.getKind() == IPackageFragmentRoot.K_SOURCE){
+					if (aPackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 						String packageName = "default";
-						if (!aPackage.isDefaultPackage()){
+						if (!aPackage.isDefaultPackage()) {
 							packageName = aPackage.getElementName();
 							IFolder packageFolder = createFolder(sourceFolder.getFolder(packageName), xtextProject);
-							visitICompilationUnits(aPackage, packageFolder);
-						}
-						else visitICompilationUnits(aPackage, sourceFolder);
+							visitICompilationUnits(subMonitor, aPackage, packageFolder);
+						} else
+							visitICompilationUnits(subMonitor, aPackage, sourceFolder);
 					}
 				}
 			}
-
 		}
+		subMonitor.done();
+		monitor.done();
 	}
 
-	private void visitICompilationUnits(IPackageFragment packageFragment, IFolder newFolder) throws JavaModelException {
+	private void visitICompilationUnits(SubMonitor subMonitor, IPackageFragment packageFragment, IFolder newFolder) throws JavaModelException {
 		for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
 			try {
 				theParser.setSource(compilationUnit);
@@ -93,6 +123,7 @@ public class ModelVisitor {
 				String fileName = compilationUnit.getElementName().replace(".java", ".rfm");
 				String mappedFile = visitITypes(compilationUnit, visitor);
 				createFile(fileName, mappedFile, newFolder);
+				subMonitor.worked(1);
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
@@ -137,7 +168,8 @@ public class ModelVisitor {
 		if (!project.exists())
 			try {
 				project.create(null);
-				if (!project.isOpen()) project.open(null);
+				if (!project.isOpen())
+					project.open(null);
 				if (!project.hasNature("org.eclipse.xtext.ui.shared.xtextNature")) {
 					IProjectDescription description = project.getDescription();
 					description.setNatureIds(new String[] { "org.eclipse.xtext.ui.shared.xtextNature" });
@@ -159,7 +191,7 @@ public class ModelVisitor {
 		return folder;
 	}
 
-	private void createFile(String fileName, String transformedFile, IFolder folder){
+	private void createFile(String fileName, String transformedFile, IFolder folder) {
 		IFile file = folder.getFile(fileName);
 		if (!file.exists()) {
 			InputStream source = new ByteArrayInputStream(transformedFile.getBytes());
@@ -178,8 +210,9 @@ public class ModelVisitor {
 	private String serializeMethod(int indentation, IMethod method, OutCodeVisitor visitor) {
 		String handleIdentifier = method.getHandleIdentifier();
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
-		if (details == null) return "";
-		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName()+"()";
+		if (details == null)
+			return "";
+		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName() + "()";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
 		String content = addLine(indentation, methodIdentifier);
@@ -217,16 +250,16 @@ public class ModelVisitor {
 			else
 				call += "calls to ";
 			if (aMethod.getDeclaringType().equals(method.getDeclaringType()))
-				call += aMethod.getElementName()+"()";
+				call += aMethod.getElementName() + "()";
 			else
-				call += aMethod.getDeclaringType().getElementName() + "." + aMethod.getElementName()+"()";
+				call += aMethod.getDeclaringType().getElementName() + "." + aMethod.getElementName() + "()";
 			content += addLine(indentation, call);
 		}
 		indentation -= 1;
 		return content;
 	}
 
-	private String getModifier(int modifiers){
+	private String getModifier(int modifiers) {
 		if (Flags.isPublic(modifiers) && Flags.isStatic(modifiers) && Flags.isFinal(modifiers))
 			return "constant ";
 		if (Flags.isPublic(modifiers))
@@ -241,12 +274,13 @@ public class ModelVisitor {
 	private String serializeField(int indentation, IField field, OutCodeVisitor visitor) {
 		String handleIdentifier = field.getHandleIdentifier();
 		FieldDetails details = (FieldDetails) visitor.getDetails(handleIdentifier);
-		if (details == null) return "";
+		if (details == null)
+			return "";
 		return addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
 	}
 
-	private String addLine(int indentation, String content){
-		char[] spaces = new char[indentation*4];
+	private String addLine(int indentation, String content) {
+		char[] spaces = new char[indentation * 4];
 		Arrays.fill(spaces, ' ');
 		return new String(spaces) + content + System.lineSeparator();
 	}

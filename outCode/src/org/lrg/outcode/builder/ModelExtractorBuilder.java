@@ -14,8 +14,8 @@ public class ModelExtractorBuilder extends IncrementalProjectBuilder {
 
 	public static final String BUILDER_ID = "OutCode.outcodeBuilder";
 
-	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
-			throws CoreException {
+	@Override
+	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
 		if (kind == FULL_BUILD) {
 			fullBuild(monitor);
 		} else {
@@ -32,10 +32,9 @@ public class ModelExtractorBuilder extends IncrementalProjectBuilder {
 			IProject project = getProject();
 			if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
 				IJavaProject javaProject = JavaCore.create(project);
-				new ModelVisitor().visitIJavaProject(javaProject);
+				// new ModelVisitor().visitIJavaProject(javaProject);
 			}
-		} 
-		catch (CoreException e) {
+		} catch (CoreException e) {
 		}
 	}
 
