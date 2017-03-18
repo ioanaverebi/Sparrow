@@ -120,7 +120,9 @@ public class OutCodeVisitor extends ASTVisitor {
 			return false;
 		if (loc.resolveMethodBinding() == null)
 			return false;
-		if (loc.resolveMethodBinding().getMethodDeclaration() == null)
+		if (loc.resolveMethodBinding().getMethodDeclaration() == null || loc.resolveMethodBinding().getMethodDeclaration().getJavaElement() == null)
+			return true;
+		if (loc.resolveMethodBinding().getMethodDeclaration().getJavaElement().isReadOnly())
 			return true;
 		addCalledMethod(loc.resolveMethodBinding().getMethodDeclaration());
 		return true;
@@ -132,7 +134,9 @@ public class OutCodeVisitor extends ASTVisitor {
 			return false;
 		if (loc.resolveMethodBinding() == null)
 			return false;
-		if (loc.resolveMethodBinding().getMethodDeclaration() == null)
+		if (loc.resolveMethodBinding().getMethodDeclaration() == null || loc.resolveMethodBinding().getMethodDeclaration().getJavaElement() == null)
+			return true;
+		if (loc.resolveMethodBinding().getMethodDeclaration().getJavaElement().isReadOnly())
 			return true;
 		addCalledMethod(loc.resolveMethodBinding().getMethodDeclaration());
 		return true;
@@ -144,6 +148,10 @@ public class OutCodeVisitor extends ASTVisitor {
 			return false;
 		if (loc.resolveConstructorBinding() == null)
 			return false;
+		if (loc.resolveConstructorBinding().getMethodDeclaration() == null || loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement() == null)
+			return true;
+		if (loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement().isReadOnly())
+			return true;
 		if (loc.resolveConstructorBinding().getJavaElement() != null)
 			addCalledMethod(loc.resolveConstructorBinding());
 		return true;
@@ -155,6 +163,10 @@ public class OutCodeVisitor extends ASTVisitor {
 			return false;
 		if (loc.resolveConstructorBinding() == null)
 			return false;
+		if (loc.resolveConstructorBinding().getMethodDeclaration() == null || loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement() == null)
+			return true;
+		if (loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement().isReadOnly())
+			return true;
 		if (loc.resolveConstructorBinding().getJavaElement() != null)
 			addCalledMethod(loc.resolveConstructorBinding());
 		return true;
@@ -166,8 +178,11 @@ public class OutCodeVisitor extends ASTVisitor {
 			return false;
 		if (loc.resolveConstructorBinding() == null)
 			return false;
-		if (loc.resolveConstructorBinding().getJavaElement() != null)
-			addCalledMethod(loc.resolveConstructorBinding());
+		if (loc.resolveConstructorBinding().getMethodDeclaration() == null || loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement() == null)
+			return true;
+		if (loc.resolveConstructorBinding().getMethodDeclaration().getJavaElement().isReadOnly())
+			return true;
+		addCalledMethod(loc.resolveConstructorBinding());
 		return true;
 	}
 
