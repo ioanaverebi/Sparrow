@@ -3,6 +3,12 @@ package org.refactor.validation;
 import java.util.HashSet;
 
 import org.eclipse.emf.common.util.EList;
+import org.refactor.metrics.ALD;
+import org.refactor.metrics.ATFD;
+import org.refactor.metrics.FDP;
+import org.refactor.metrics.NOPA;
+import org.refactor.metrics.NOPM;
+import org.refactor.metrics.WMC;
 import org.refactor.modelEditor.Access;
 import org.refactor.modelEditor.Class;
 import org.refactor.modelEditor.Field;
@@ -44,6 +50,21 @@ public class FeatureEnvyChecker implements IRuleChecker{
 		if ((double)internalAccesses/(double)accesses.size() > 0.33) return false;
 		if (dataProviders.size() > Constants.FEW) return false;
 		return true;
+	}
+
+	@Override
+	public int getSeverity() {
+		double atfd = new ATFD(method).compute();
+		double ald = new ALD(method).compute();
+		double fdp = new FDP(method).compute();
+		double laa = ald + atfd == 0 ? 1 : ald / (atfd + ald);
+		
+		int atfdScore = SeverityScore.computeScore(atfd, Constants.FEW, 5*Constants.FEW);
+		int laaScore = SeverityScore.computeScore(laa, Constants.ONE_THIRD, 0);
+		int fdpScore = SeverityScore.computeScore(fdp, 1, Constants.FEW);
+		
+		int severity = SeverityScore.computeAverage(atfdScore, laaScore, fdpScore);
+		return severity;
 	}
 
 }

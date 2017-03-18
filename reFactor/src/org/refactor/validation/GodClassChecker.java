@@ -88,4 +88,10 @@ public class GodClassChecker implements IRuleChecker {
 		return tcc;
 	}
 
+	@Override
+	public int getSeverity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
