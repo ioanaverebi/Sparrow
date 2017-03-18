@@ -26,7 +26,7 @@ public class DataClassChecker implements IRuleChecker{
 
 	@Override
 	public String getMessage() {
-		return "Data Class";
+		return "Data Class: severity " + getSeverity();
 	}
 
 	@Override

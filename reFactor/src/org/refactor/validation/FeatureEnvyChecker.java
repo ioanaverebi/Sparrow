@@ -6,9 +6,6 @@ import org.eclipse.emf.common.util.EList;
 import org.refactor.metrics.ALD;
 import org.refactor.metrics.ATFD;
 import org.refactor.metrics.FDP;
-import org.refactor.metrics.NOPA;
-import org.refactor.metrics.NOPM;
-import org.refactor.metrics.WMC;
 import org.refactor.modelEditor.Access;
 import org.refactor.modelEditor.Class;
 import org.refactor.modelEditor.Field;
@@ -29,7 +26,7 @@ public class FeatureEnvyChecker implements IRuleChecker{
 
 	@Override
 	public String getMessage() {
-		return "Feature Envy";
+		return "Feature Envy: severity " + getSeverity();
 	}
 
 	@Override
