@@ -106,7 +106,8 @@ public class OutCodeVisitor extends ASTVisitor {
 				if (variableDeclarationBinding.getDeclaringClass() != null) {
 					IJavaElement accessedField = variableDeclarationBinding.getJavaElement();
 					if (accessedField instanceof IField) {
-						methodDetails.addAccess((IField) accessedField);
+						if (!((IField) accessedField).isReadOnly())
+							methodDetails.addAccess((IField) accessedField);
 					}
 				}
 			}
