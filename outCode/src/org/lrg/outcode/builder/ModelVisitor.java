@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -212,7 +213,12 @@ public class ModelVisitor {
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)
 			return "";
-		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName() + "()";
+		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName() + "(";
+		StringJoiner joiner = new StringJoiner(", ");
+		for (IType parameter : details.getParameters()) {
+			joiner.add(parameter.getElementName());
+		}
+		methodIdentifier += joiner.toString() + ")";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
 		String content = addLine(indentation, methodIdentifier);

@@ -1,6 +1,7 @@
 package org.lrg.outcode.builder.ast;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.IField;
@@ -10,6 +11,7 @@ import org.eclipse.jdt.core.IType;
 public class MethodDetails implements IDetails{
 	private Map<IField, Integer> accesses = new HashMap<IField, Integer>();
 	private Map<IMethod, Integer> calls = new HashMap<IMethod, Integer>();
+	private List<IType> parameters;
 	private int modifiers;
 	private IType returnType;
 	private int cyclo = 1;
@@ -49,6 +51,10 @@ public class MethodDetails implements IDetails{
 		this.modifiers = modifiers;
 	}
 	
+	public void setParameters(List<IType> parameters) {
+		this.parameters = parameters;
+	}
+	
 	public int getCyclo() {
 		return cyclo;
 	}
@@ -67,5 +73,9 @@ public class MethodDetails implements IDetails{
 
 	public int getModifiers() {
 		return modifiers;
+	}
+	
+	public List<IType> getParameters() {
+		return parameters;
 	}
 }

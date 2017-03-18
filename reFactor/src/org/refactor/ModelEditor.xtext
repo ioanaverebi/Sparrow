@@ -35,6 +35,7 @@ Method:
 		(calls += Call)*
 	END)?;
 
+
 MemberModifier:
 	'public' | 'private' | 'protected' | 'constant';
 	

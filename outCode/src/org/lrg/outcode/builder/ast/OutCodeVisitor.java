@@ -1,5 +1,6 @@
 package org.lrg.outcode.builder.ast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeParameter;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -26,6 +28,7 @@ import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.SwitchCase;
@@ -78,6 +81,7 @@ public class OutCodeVisitor extends ASTVisitor {
 			String handleIdentifier = currentMethod.getHandleIdentifier();
 			allDetails.put(handleIdentifier, methodDetails);
 			methodDetails.setModifiers(methodDeclaration.getModifiers());
+			methodDetails.setParameters(getParameters(methodDeclaration.parameters()));
 			Type returnType2 = methodDeclaration.getReturnType2();
 			if (returnType2 != null) {
 				ITypeBinding typeBinding = returnType2.resolveBinding();
@@ -88,6 +92,20 @@ public class OutCodeVisitor extends ASTVisitor {
 			}
 		}
 		return true;
+	}
+
+	private List<IType> getParameters(List list) {
+		List<IType> params = new ArrayList<IType>();
+		for (Object elem : list) {
+			if (elem instanceof SingleVariableDeclaration){
+				SingleVariableDeclaration param = (SingleVariableDeclaration) elem;
+				Type type = param.getType();
+				if (type != null && type.resolveBinding() != null && type.resolveBinding().getJavaElement() instanceof IType){
+					params.add((IType)type.resolveBinding().getJavaElement());
+				}
+			}
+		}
+		return params;
 	}
 
 	@Override
