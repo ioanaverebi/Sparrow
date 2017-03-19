@@ -1,20 +1,34 @@
 package org.refactor.metrics;
 
+import org.eclipse.emf.ecore.EObject;
 import org.refactor.modelEditor.Access;
+import org.refactor.modelEditor.Class;
+import org.refactor.modelEditor.Field;
 import org.refactor.modelEditor.Method;
 
 public class ATFD extends AbstractMetric{
-	private Method method;
 
-	public ATFD(Method method) {
+	public ATFD() {
 		super("Access to Foreing Data");
-		this.method = method;
 	}
 
 	@Override
-	public double compute() {
+	public double compute(EObject element) {
 		int atfd = 0;
-		for (Access access : method.getAccesses()) {		
+		if (element instanceof Method){
+			Method method = (Method)element;
+			for (Access access : method.getAccesses()) {
+				Field field = access.getField();
+				if (!field.eContainer().equals(method.eContainer()))
+					atfd++;
+			}
+		}
+		else if (element instanceof Class){
+			Class type = (Class)element;
+			ATFD methodATFD = new ATFD();
+			for (Method method : type.getMethods()) {
+				atfd += methodATFD.compute(method);
+			}
 		}
 		return atfd;
 	}

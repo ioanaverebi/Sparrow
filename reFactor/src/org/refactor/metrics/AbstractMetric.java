@@ -1,5 +1,7 @@
 package org.refactor.metrics;
 
+import org.eclipse.emf.ecore.EObject;
+
 public abstract class AbstractMetric {
 	private String description;
 	
@@ -11,5 +13,5 @@ public abstract class AbstractMetric {
 		return description;
 	}
 	
-	public abstract double compute();
+	public abstract double compute(EObject element);
 }
