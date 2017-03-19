@@ -31,11 +31,12 @@ class ModelEditorValidator extends AbstractModelEditorValidator {
 		}
 	}
 	
-//	@Check
-//	def checkGodClass(Class classElement) {
-//		if (classElement.members.length > 2) {
-//			warning('Too complex', ModelEditorPackage.Literals.METHOD__CYCLO);
-//		}
-//	}
+	@Check
+	def checkGodClass(Class classElement) {
+		var checker = new GodClassChecker(classElement);
+		if (checker.check()) {
+			warning(checker.getMessage(), ModelEditorPackage.Literals.CLASS__NAME);
+		}
+	}
 	
 }
