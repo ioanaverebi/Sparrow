@@ -55,11 +55,11 @@ public class FeatureEnvyChecker implements IRuleChecker{
 		double ald = new ALD(method).compute();
 		double fdp = new FDP(method).compute();
 		double laa = ald + atfd == 0 ? 1 : ald / (atfd + ald);
-		
+
 		int atfdScore = SeverityScore.computeScore(atfd, Constants.FEW, 5*Constants.FEW);
 		int laaScore = SeverityScore.computeScore(laa, Constants.ONE_THIRD, 0);
 		int fdpScore = SeverityScore.computeScore(fdp, 1, Constants.FEW);
-		
+
 		int severity = SeverityScore.computeAverage(atfdScore, laaScore, fdpScore);
 		return severity;
 	}
