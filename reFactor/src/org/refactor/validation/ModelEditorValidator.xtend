@@ -3,10 +3,15 @@
  */
 package org.refactor.validation
 
+import com.google.inject.Inject
+import com.google.inject.Provider
+import org.eclipse.xtext.resource.XtextResourceSet
 import org.eclipse.xtext.validation.Check
 import org.refactor.modelEditor.Class
 import org.refactor.modelEditor.Method
 import org.refactor.modelEditor.ModelEditorPackage
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider
+import org.eclipse.xtext.resource.IResourceDescriptions
 
 /**
  * This class contains custom validation rules. 
@@ -14,7 +19,10 @@ import org.refactor.modelEditor.ModelEditorPackage
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class ModelEditorValidator extends AbstractModelEditorValidator {
-
+	
+	@Inject
+    private IResourceDescriptions iResourceDescriptions
+    
 	@Check
 	def checkFeatureEnvy(Method methodElement) {
 		var checker = new FeatureEnvyChecker(methodElement);
@@ -25,7 +33,7 @@ class ModelEditorValidator extends AbstractModelEditorValidator {
 	
 	@Check
 	def checkDataClass(Class classElement) {
-		var checker = new DataClassChecker(classElement);
+		var checker = new DataClassChecker(iResourceDescriptions, classElement);
 		if (checker.check()) {
 			warning(checker.getMessage(), ModelEditorPackage.Literals.CLASS__NAME);
 		}

@@ -28,4 +28,5 @@ Bundle-ClassPath: .,
  lib/mongo-java-driver-2.13.0-rc0.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: com.google.inject,
- org.eclipse.xtext.resource
+ org.eclipse.xtext.resource,
+ org.eclipse.xtext.ui.resource

@@ -3,9 +3,15 @@
  */
 package org.refactor
 
+import org.eclipse.xtext.resource.IContainer
+import org.eclipse.xtext.resource.containers.StateBasedContainerManager
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class ModelEditorRuntimeModule extends AbstractModelEditorRuntimeModule {
+	
+	override Class<? extends IContainer.Manager> bindIContainer$Manager() {
+    	return StateBasedContainerManager
+	}
 }
