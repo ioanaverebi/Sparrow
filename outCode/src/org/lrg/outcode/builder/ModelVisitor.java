@@ -148,6 +148,7 @@ public class ModelVisitor {
 		IMethod[] methods = type.getMethods();
 		String content = "";
 		for (IMethod method : methods) {
+			content += System.lineSeparator();
 			content += serializeMethod(indentation, method, visitor);
 		}
 		return content;
