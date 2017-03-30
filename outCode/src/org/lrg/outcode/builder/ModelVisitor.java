@@ -27,9 +27,11 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
@@ -135,30 +137,30 @@ public class ModelVisitor {
 		IType[] allTypes = unit.getAllTypes();
 		String content = "";
 		for (IType type : allTypes) {
-			content += serializeType(type);
+			content += serializeType(unit, type);
 			int indentation = 1;
-			content += visitIFields(type, visitor, indentation);
-			content += visitIMethods(type, visitor, indentation);
+			content += visitIFields(unit, type, visitor, indentation);
+			content += visitIMethods(unit, type, visitor, indentation);
 			indentation -= 1;
 		}
 		return content;
 	}
 
-	private String visitIMethods(IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
+	private String visitIMethods(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
 		IMethod[] methods = type.getMethods();
 		String content = "";
 		for (IMethod method : methods) {
 			content += System.lineSeparator();
-			content += serializeMethod(indentation, method, visitor);
+			content += serializeMethod(unit, indentation, method, visitor);
 		}
 		return content;
 	}
 
-	private String visitIFields(IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
+	private String visitIFields(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
 		IField[] fields = type.getFields();
 		String content = "";
 		for (IField field : fields) {
-			content += serializeField(indentation, field, visitor);
+			content += serializeField(unit, indentation, field, visitor);
 		}
 		return content;
 	}
@@ -205,11 +207,24 @@ public class ModelVisitor {
 		}
 	}
 
-	private String serializeType(IType type) {
-		return addLine(0, "class " + type.getElementName());
+	private String serializeType(ICompilationUnit unit, IType type) {
+		String content = addLine(0, getComments(unit, type)); 
+		content += addLine(0, "class " + type.getElementName());
+		return content;
 	}
 
-	private String serializeMethod(int indentation, IMethod method, OutCodeVisitor visitor) {
+	private String getComments(ICompilationUnit unit, IMember member) {
+		try {
+			ISourceRange range = member.getJavadocRange();
+			if (range != null)
+				return unit.getSource().substring(range.getOffset(), range.getOffset()+range.getLength());
+		} catch (JavaModelException e1) {
+			e1.printStackTrace();
+		}
+		return "";
+	}
+
+	private String serializeMethod(ICompilationUnit unit, int indentation, IMethod method, OutCodeVisitor visitor) {
 		String handleIdentifier = method.getHandleIdentifier();
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)
@@ -222,7 +237,8 @@ public class ModelVisitor {
 		methodIdentifier += joiner.toString() + ")";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
-		String content = addLine(indentation, methodIdentifier);
+		String content = addLine(indentation, getComments(unit, method)); 
+		content += addLine(indentation, methodIdentifier);
 		indentation += 1;
 		try {
 			int linesOfCode = method.getSource().split("\r\n|\r|\n").length;
@@ -278,12 +294,14 @@ public class ModelVisitor {
 		return "";
 	}
 
-	private String serializeField(int indentation, IField field, OutCodeVisitor visitor) {
+	private String serializeField(ICompilationUnit unit, int indentation, IField field, OutCodeVisitor visitor) {
 		String handleIdentifier = field.getHandleIdentifier();
 		FieldDetails details = (FieldDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)
 			return "";
-		return addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
+		String content = addLine(indentation, getComments(unit, field));
+		content += addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
+		return content;
 	}
 
 	private String addLine(int indentation, String content) {
