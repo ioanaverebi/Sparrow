@@ -208,7 +208,10 @@ public class ModelVisitor {
 	}
 
 	private String serializeType(ICompilationUnit unit, IType type) {
-		String content = addLine(0, getComments(unit, type)); 
+		String comments = getComments(unit, type);
+		String content = "";
+		if (comments != null)
+			addLine(0, comments); 
 		content += addLine(0, "class " + type.getElementName());
 		return content;
 	}
@@ -221,7 +224,7 @@ public class ModelVisitor {
 		} catch (JavaModelException e1) {
 			e1.printStackTrace();
 		}
-		return "";
+		return null;
 	}
 
 	private String serializeMethod(ICompilationUnit unit, int indentation, IMethod method, OutCodeVisitor visitor) {
@@ -237,7 +240,10 @@ public class ModelVisitor {
 		methodIdentifier += joiner.toString() + ")";
 		if (details.getReturnType() != null)
 			methodIdentifier += ": " + details.getReturnType().getElementName();
-		String content = addLine(indentation, getComments(unit, method)); 
+		String comments = getComments(unit, method);
+		String content = "";
+		if (comments != null)
+			addLine(0, comments);
 		content += addLine(indentation, methodIdentifier);
 		indentation += 1;
 		try {
@@ -299,7 +305,10 @@ public class ModelVisitor {
 		FieldDetails details = (FieldDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)
 			return "";
-		String content = addLine(indentation, getComments(unit, field));
+		String comments = getComments(unit, field);
+		String content = "";
+		if (comments != null)
+			addLine(0, comments);
 		content += addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
 		return content;
 	}
