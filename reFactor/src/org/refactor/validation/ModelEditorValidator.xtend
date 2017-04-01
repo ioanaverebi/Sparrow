@@ -4,14 +4,11 @@
 package org.refactor.validation
 
 import com.google.inject.Inject
-import com.google.inject.Provider
-import org.eclipse.xtext.resource.XtextResourceSet
+import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.validation.Check
 import org.refactor.modelEditor.Class
 import org.refactor.modelEditor.Method
 import org.refactor.modelEditor.ModelEditorPackage
-import org.eclipse.xtext.ui.resource.XtextResourceSetProvider
-import org.eclipse.xtext.resource.IResourceDescriptions
 
 /**
  * This class contains custom validation rules. 
