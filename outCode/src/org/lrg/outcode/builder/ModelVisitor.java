@@ -294,7 +294,7 @@ public class ModelVisitor {
 		return content;
 	}
 
-	private List sortKeys(Map operations, String currentType) {
+	private List sortKeys(Map operations, final String currentType) {
 		ArrayList<IMember> keys = new ArrayList<IMember>(operations.keySet());
 		Collections.sort(keys, new Comparator<IMember>() {
 
