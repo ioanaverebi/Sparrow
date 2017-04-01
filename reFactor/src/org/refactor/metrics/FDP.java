@@ -36,7 +36,7 @@ public class FDP extends AbstractMetric{
 		Set<EObject> containers = new HashSet<EObject>();
 		for (Access access : method.getAccesses()) {
 			Field field = access.getField();
-			if (!field.eContainer().equals(method.eContainer()))
+			if (!field.getModifier().equals("constant") && !field.eContainer().equals(method.eContainer()))
 				containers.add(field.eContainer());
 		}
 		return containers;

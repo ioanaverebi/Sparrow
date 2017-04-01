@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: reFactor
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Ioana Verebi
+Bundle-Version: 1.0.1
 Bundle-SymbolicName: reFactor; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
@@ -14,10 +14,9 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtend.lib,
  org.eclipse.emf.common,
  org.antlr.runtime,
- org.eclipse.xtext.ui.shared;bundle-version="2.11.0",
+ org.eclipse.xtext.ui.shared,
  org.eclipse.osgi,
- org.eclipse.core.resources;bundle-version="3.11.1",
- org.eclipse.xtext.ui;bundle-version="2.11.0"
+ org.eclipse.xtext.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.refactor.modelEditor,
  org.refactor.generator,
@@ -32,4 +31,5 @@ Export-Package: org.refactor.modelEditor,
  org.refactor.parser.antlr.lexer,
  org.refactor.parser.antlr.internal
 Import-Package: org.apache.log4j,
+ org.eclipse.core.resources,
  org.eclipse.core.runtime;version="3.5.0"
