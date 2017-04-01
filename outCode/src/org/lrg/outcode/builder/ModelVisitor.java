@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -263,7 +264,7 @@ public class ModelVisitor {
 		Map<IField, Integer> accesses = details.getAccesses();
 		Map<IMethod, Integer> calls = details.getCalls();
 
-		for (IField aField : (List<IField>) sortKeys(accesses)) {
+		for (IField aField : (List<IField>) sortKeys(accesses, method.getDeclaringType().getElementName())) {
 			Integer howMany = accesses.get(aField);
 			String access = howMany + " ";
 			if (howMany == 1)
@@ -276,7 +277,7 @@ public class ModelVisitor {
 				access += aField.getDeclaringType().getElementName() + "." + aField.getElementName();
 			content += addLine(indentation, access);
 		}
-		for (IMethod aMethod : (List<IMethod>) sortKeys(calls)) {
+		for (IMethod aMethod : (List<IMethod>) sortKeys(calls, method.getDeclaringType().getElementName())) {
 			Integer howMany = calls.get(aMethod);
 			String call = howMany + " ";
 			if (howMany == 1)
@@ -293,13 +294,18 @@ public class ModelVisitor {
 		return content;
 	}
 
-	private List sortKeys(Map operations) {
+	private List sortKeys(Map operations, String currentType) {
 		ArrayList<IMember> keys = new ArrayList<IMember>(operations.keySet());
 		Collections.sort(keys, new Comparator<IMember>() {
 
 			@Override
 			public int compare(IMember m1, IMember m2) {
-				return m1.getDeclaringType().getElementName().compareTo(m2.getDeclaringType().getElementName());
+				String t1 = m1.getDeclaringType().getElementName();
+				String t2 = m2.getDeclaringType().getElementName();
+				if (t1.equals(t2)) return 0;
+				if (t1.equals(currentType)) return -1;
+				if (t2.equals(currentType)) return 1;
+				return t1.compareTo(t2);
 			}
 		});
 		return keys;
