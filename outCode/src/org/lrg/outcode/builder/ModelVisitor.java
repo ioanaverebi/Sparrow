@@ -142,8 +142,9 @@ public class ModelVisitor {
 	private String visitITypes(ICompilationUnit unit, OutCodeVisitor visitor) throws JavaModelException {
 		IType[] allTypes = unit.getAllTypes();
 		String content = "";
-		for (IType type : allTypes) {
-			content += serializeType(unit, type);
+		for (int i = 0; i < allTypes.length; i++) {
+			IType type = allTypes[i];
+			content += serializeType(unit, type, i);
 			int indentation = 1;
 			content += visitIFields(unit, type, visitor, indentation);
 			content += visitIMethods(unit, type, visitor, indentation);
@@ -213,11 +214,13 @@ public class ModelVisitor {
 		}
 	}
 
-	private String serializeType(ICompilationUnit unit, IType type) {
+	private String serializeType(ICompilationUnit unit, IType type, int index) {
 		String comments = getComments(unit, type);
 		String content = "";
 		if (comments != null)
-			addLine(0, comments); 
+			content += addLine(0, comments);
+		if (index > 0)
+			content += addLine(0, "");
 		content += addLine(0, "class " + type.getElementName());
 		return content;
 	}
@@ -249,7 +252,7 @@ public class ModelVisitor {
 		String comments = getComments(unit, method);
 		String content = "";
 		if (comments != null)
-			addLine(0, comments);
+			content += addLine(0, comments);
 		content += addLine(indentation, methodIdentifier);
 		indentation += 1;
 		try {
@@ -331,7 +334,7 @@ public class ModelVisitor {
 		String comments = getComments(unit, field);
 		String content = "";
 		if (comments != null)
-			addLine(0, comments);
+			content += addLine(0, comments);
 		content += addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
 		return content;
 	}
