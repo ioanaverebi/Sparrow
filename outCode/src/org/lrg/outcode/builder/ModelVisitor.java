@@ -2,8 +2,13 @@ package org.lrg.outcode.builder;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -258,7 +263,7 @@ public class ModelVisitor {
 		Map<IField, Integer> accesses = details.getAccesses();
 		Map<IMethod, Integer> calls = details.getCalls();
 
-		for (IField aField : accesses.keySet()) {
+		for (IField aField : (List<IField>) sortKeys(accesses)) {
 			Integer howMany = accesses.get(aField);
 			String access = howMany + " ";
 			if (howMany == 1)
@@ -271,7 +276,7 @@ public class ModelVisitor {
 				access += aField.getDeclaringType().getElementName() + "." + aField.getElementName();
 			content += addLine(indentation, access);
 		}
-		for (IMethod aMethod : calls.keySet()) {
+		for (IMethod aMethod : (List<IMethod>) sortKeys(calls)) {
 			Integer howMany = calls.get(aMethod);
 			String call = howMany + " ";
 			if (howMany == 1)
@@ -286,6 +291,18 @@ public class ModelVisitor {
 		}
 		indentation -= 1;
 		return content;
+	}
+
+	private List sortKeys(Map operations) {
+		ArrayList<IMember> keys = new ArrayList<IMember>(operations.keySet());
+		Collections.sort(keys, new Comparator<IMember>() {
+
+			@Override
+			public int compare(IMember m1, IMember m2) {
+				return m1.getDeclaringType().getElementName().compareTo(m2.getDeclaringType().getElementName());
+			}
+		});
+		return keys;
 	}
 
 	private String getModifier(int modifiers) {
