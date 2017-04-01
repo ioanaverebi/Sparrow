@@ -8,12 +8,4 @@ public class SeverityScore {
 		if (min == max) return 1;
 		return (int)(1+9*(value-min)/(max-min));
 	}
-	
-	public static int computeAverage(Integer... values){
-		int average = 0;
-		for (Integer value : values) {
-			average += value;
-		}
-		return average/values.length;
-	}
 }

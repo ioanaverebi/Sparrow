@@ -19,7 +19,7 @@ public class ATFD extends AbstractMetric{
 			Method method = (Method)element;
 			for (Access access : method.getAccesses()) {
 				Field field = access.getField();
-				if (!field.eContainer().equals(method.eContainer()))
+				if (!field.getModifier().equals("constant") && !field.eContainer().equals(method.eContainer()))
 					atfd++;
 			}
 		}

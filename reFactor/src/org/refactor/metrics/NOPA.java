@@ -16,7 +16,7 @@ public class NOPA extends AbstractMetric{
 		if (element instanceof Class){
 			Class type = (Class)element;
 			for (Field field : type.getFields()) {
-				if (field.getModifier().compareTo("public") == 0)
+				if (field.getModifier().equals("public") && !field.getModifier().equals("constant"))
 					nopa++;			
 			}
 		}

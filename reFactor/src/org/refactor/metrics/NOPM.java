@@ -16,7 +16,7 @@ public class NOPM extends AbstractMetric{
 		if (element instanceof Class){
 			Class type = (Class)element;
 			for (Method method : type.getMethods()) {
-				if (method.getModifier().compareTo("public") == 0)
+				if (method.getModifier().equals("public"))
 					nopm++;
 			}
 		}
