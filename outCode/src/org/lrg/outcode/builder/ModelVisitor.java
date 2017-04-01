@@ -4,11 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -37,7 +35,6 @@ import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
@@ -221,18 +218,32 @@ public class ModelVisitor {
 			content += addLine(0, comments);
 		if (index > 0)
 			content += addLine(0, "");
-		content += addLine(0, "class " + type.getElementName());
+		String declaration = type.getElementName();
+		try {
+			if (type.getSuperclassName() != null)
+				declaration += " extends "+type.getSuperclassName();
+			if (type.getSuperInterfaceNames().length > 0){
+				if (type.isInterface())
+					declaration += " extends ";
+				else
+					declaration += " implements ";
+				declaration += String.join(",", type.getSuperInterfaceNames());
+			}
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		}
+		content += addLine(0, "class " + declaration);
 		return content;
 	}
 
 	private String getComments(ICompilationUnit unit, IMember member) {
-		try {
-			ISourceRange range = member.getJavadocRange();
-			if (range != null)
-				return unit.getSource().substring(range.getOffset(), range.getOffset()+range.getLength());
-		} catch (JavaModelException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			ISourceRange range = member.getJavadocRange();
+//			if (range != null)
+//				return unit.getSource().substring(range.getOffset(), range.getOffset()+range.getLength());
+//		} catch (JavaModelException e1) {
+//			e1.printStackTrace();
+//		}
 		return null;
 	}
 

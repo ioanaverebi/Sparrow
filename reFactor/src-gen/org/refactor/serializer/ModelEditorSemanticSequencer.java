@@ -110,7 +110,14 @@ public class ModelEditorSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     Class returns Class
 	 *
 	 * Constraint:
-	 *     (modifier=ClassModifier? name=ID superType=[Class|QualifiedName]? fields+=Field* methods+=Method*)
+	 *     (
+	 *         modifier=ClassModifier? 
+	 *         name=ID 
+	 *         superClass=[Class|QualifiedName]? 
+	 *         superTypes+=[Class|QualifiedName]* 
+	 *         fields+=Field* 
+	 *         methods+=Method*
+	 *     )
 	 */
 	protected void sequence_Class(ISerializationContext context, org.refactor.modelEditor.Class semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

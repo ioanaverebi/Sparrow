@@ -18,7 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.refactor.modelEditor.Class#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getName <em>Name</em>}</li>
- *   <li>{@link org.refactor.modelEditor.Class#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.Class#getSuperClass <em>Super Class</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.Class#getSuperTypes <em>Super Types</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getFields <em>Fields</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getMethods <em>Methods</em>}</li>
  * </ul>
@@ -82,30 +83,46 @@ public interface Class extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Super Type</b></em>' reference.
+   * Returns the value of the '<em><b>Super Class</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Super Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Super Class</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Super Type</em>' reference.
-   * @see #setSuperType(Class)
-   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_SuperType()
+   * @return the value of the '<em>Super Class</em>' reference.
+   * @see #setSuperClass(Class)
+   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_SuperClass()
    * @model
    * @generated
    */
-  Class getSuperType();
+  Class getSuperClass();
 
   /**
-   * Sets the value of the '{@link org.refactor.modelEditor.Class#getSuperType <em>Super Type</em>}' reference.
+   * Sets the value of the '{@link org.refactor.modelEditor.Class#getSuperClass <em>Super Class</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Super Type</em>' reference.
-   * @see #getSuperType()
+   * @param value the new value of the '<em>Super Class</em>' reference.
+   * @see #getSuperClass()
    * @generated
    */
-  void setSuperType(Class value);
+  void setSuperClass(Class value);
+
+  /**
+   * Returns the value of the '<em><b>Super Types</b></em>' reference list.
+   * The list contents are of type {@link org.refactor.modelEditor.Class}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Super Types</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Super Types</em>' reference list.
+   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_SuperTypes()
+   * @model
+   * @generated
+   */
+  EList<Class> getSuperTypes();
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.

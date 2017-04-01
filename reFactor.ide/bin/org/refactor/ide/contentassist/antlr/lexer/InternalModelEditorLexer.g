@@ -11,6 +11,8 @@ package org.refactor.ide.contentassist.antlr.lexer;
 import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.Lexer;
 }
 
+Implements : 'implements';
+
 Protected : 'protected';
 
 Accesses : 'accesses';

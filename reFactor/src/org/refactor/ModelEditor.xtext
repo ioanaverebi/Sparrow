@@ -16,7 +16,7 @@ QualifiedName:
 	(ID | STRING) ('.' ID | STRING)*;
 
 Class:
-	modifier=(ClassModifier)? 'class' name=ID ('extends' superType=[Class|QualifiedName])?
+	modifier=(ClassModifier)? 'class' name=ID ('extends' (superTypes+=[Class|QualifiedName])*)? ('implements' (superTypes+=[Class|QualifiedName])*)?
 	(BEGIN
 	(fields+=Field)*
 	(methods+=Method)*

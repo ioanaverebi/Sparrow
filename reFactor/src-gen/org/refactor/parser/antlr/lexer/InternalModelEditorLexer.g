@@ -11,6 +11,8 @@ package org.refactor.parser.antlr.lexer;
 import org.eclipse.xtext.parser.antlr.Lexer;
 }
 
+Implements : 'implements';
+
 Protected : 'protected';
 
 Accesses : 'accesses';

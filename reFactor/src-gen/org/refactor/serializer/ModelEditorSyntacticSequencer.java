@@ -24,7 +24,8 @@ public class ModelEditorSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected ModelEditorGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Access_AccessKeyword_1_0_or_AccessesKeyword_1_1;
 	protected AbstractElementAlias match_Call_CallKeyword_1_0_or_CallsKeyword_1_1;
-	protected AbstractElementAlias match_Class___BEGINTerminalRuleCall_4_0_ENDTerminalRuleCall_4_3__q;
+	protected AbstractElementAlias match_Class_ImplementsKeyword_4_0_q;
+	protected AbstractElementAlias match_Class___BEGINTerminalRuleCall_5_0_ENDTerminalRuleCall_5_3__q;
 	protected AbstractElementAlias match_Method___BEGINTerminalRuleCall_6_0_ENDTerminalRuleCall_6_5__q;
 	
 	@Inject
@@ -32,7 +33,8 @@ public class ModelEditorSyntacticSequencer extends AbstractSyntacticSequencer {
 		grammarAccess = (ModelEditorGrammarAccess) access;
 		match_Access_AccessKeyword_1_0_or_AccessesKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getAccessAccess().getAccessKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getAccessAccess().getAccessesKeyword_1_1()));
 		match_Call_CallKeyword_1_0_or_CallsKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getCallAccess().getCallKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getCallAccess().getCallsKeyword_1_1()));
-		match_Class___BEGINTerminalRuleCall_4_0_ENDTerminalRuleCall_4_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getClassAccess().getBEGINTerminalRuleCall_4_0()), new TokenAlias(false, false, grammarAccess.getClassAccess().getENDTerminalRuleCall_4_3()));
+		match_Class_ImplementsKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getClassAccess().getImplementsKeyword_4_0());
+		match_Class___BEGINTerminalRuleCall_5_0_ENDTerminalRuleCall_5_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getClassAccess().getBEGINTerminalRuleCall_5_0()), new TokenAlias(false, false, grammarAccess.getClassAccess().getENDTerminalRuleCall_5_3()));
 		match_Method___BEGINTerminalRuleCall_6_0_ENDTerminalRuleCall_6_5__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getMethodAccess().getBEGINTerminalRuleCall_6_0()), new TokenAlias(false, false, grammarAccess.getMethodAccess().getENDTerminalRuleCall_6_5()));
 	}
 	
@@ -67,8 +69,10 @@ public class ModelEditorSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Access_AccessKeyword_1_0_or_AccessesKeyword_1_1(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Call_CallKeyword_1_0_or_CallsKeyword_1_1.equals(syntax))
 				emit_Call_CallKeyword_1_0_or_CallsKeyword_1_1(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_Class___BEGINTerminalRuleCall_4_0_ENDTerminalRuleCall_4_3__q.equals(syntax))
-				emit_Class___BEGINTerminalRuleCall_4_0_ENDTerminalRuleCall_4_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_Class_ImplementsKeyword_4_0_q.equals(syntax))
+				emit_Class_ImplementsKeyword_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_Class___BEGINTerminalRuleCall_5_0_ENDTerminalRuleCall_5_3__q.equals(syntax))
+				emit_Class___BEGINTerminalRuleCall_5_0_ENDTerminalRuleCall_5_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Method___BEGINTerminalRuleCall_6_0_ENDTerminalRuleCall_6_5__q.equals(syntax))
 				emit_Method___BEGINTerminalRuleCall_6_0_ENDTerminalRuleCall_6_5__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -99,13 +103,30 @@ public class ModelEditorSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     'implements'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID (ambiguity) (BEGIN END)? (rule end)
+	 *     name=ID (ambiguity) BEGIN fields+=Field
+	 *     name=ID (ambiguity) BEGIN methods+=Method
+	 *     superClass=[Class|QualifiedName] (ambiguity) (BEGIN END)? (rule end)
+	 *     superClass=[Class|QualifiedName] (ambiguity) BEGIN fields+=Field
+	 *     superClass=[Class|QualifiedName] (ambiguity) BEGIN methods+=Method
+	 */
+	protected void emit_Class_ImplementsKeyword_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     (BEGIN END)?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=ID (ambiguity) (rule end)
-	 *     superType=[Class|QualifiedName] (ambiguity) (rule end)
+	 *     name=ID 'implements'? (ambiguity) (rule end)
+	 *     superClass=[Class|QualifiedName] 'implements'? (ambiguity) (rule end)
+	 *     superTypes+=[Class|QualifiedName] (ambiguity) (rule end)
 	 */
-	protected void emit_Class___BEGINTerminalRuleCall_4_0_ENDTerminalRuleCall_4_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Class___BEGINTerminalRuleCall_5_0_ENDTerminalRuleCall_5_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

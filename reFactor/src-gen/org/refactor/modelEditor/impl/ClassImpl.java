@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.refactor.modelEditor.Field;
@@ -33,7 +34,8 @@ import org.refactor.modelEditor.ModelEditorPackage;
  * <ul>
  *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getSuperClass <em>Super Class</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getSuperTypes <em>Super Types</em>}</li>
  *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getFields <em>Fields</em>}</li>
  *   <li>{@link org.refactor.modelEditor.impl.ClassImpl#getMethods <em>Methods</em>}</li>
  * </ul>
@@ -83,14 +85,24 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
+   * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSuperType()
+   * @see #getSuperClass()
    * @generated
    * @ordered
    */
-  protected org.refactor.modelEditor.Class superType;
+  protected org.refactor.modelEditor.Class superClass;
+
+  /**
+   * The cached value of the '{@link #getSuperTypes() <em>Super Types</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSuperTypes()
+   * @generated
+   * @ordered
+   */
+  protected EList<org.refactor.modelEditor.Class> superTypes;
 
   /**
    * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
@@ -184,19 +196,19 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
    * <!-- end-user-doc -->
    * @generated
    */
-  public org.refactor.modelEditor.Class getSuperType()
+  public org.refactor.modelEditor.Class getSuperClass()
   {
-    if (superType != null && superType.eIsProxy())
+    if (superClass != null && superClass.eIsProxy())
     {
-      InternalEObject oldSuperType = (InternalEObject)superType;
-      superType = (org.refactor.modelEditor.Class)eResolveProxy(oldSuperType);
-      if (superType != oldSuperType)
+      InternalEObject oldSuperClass = (InternalEObject)superClass;
+      superClass = (org.refactor.modelEditor.Class)eResolveProxy(oldSuperClass);
+      if (superClass != oldSuperClass)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelEditorPackage.CLASS__SUPER_TYPE, oldSuperType, superType));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelEditorPackage.CLASS__SUPER_CLASS, oldSuperClass, superClass));
       }
     }
-    return superType;
+    return superClass;
   }
 
   /**
@@ -204,9 +216,9 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
    * <!-- end-user-doc -->
    * @generated
    */
-  public org.refactor.modelEditor.Class basicGetSuperType()
+  public org.refactor.modelEditor.Class basicGetSuperClass()
   {
-    return superType;
+    return superClass;
   }
 
   /**
@@ -214,12 +226,26 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSuperType(org.refactor.modelEditor.Class newSuperType)
+  public void setSuperClass(org.refactor.modelEditor.Class newSuperClass)
   {
-    org.refactor.modelEditor.Class oldSuperType = superType;
-    superType = newSuperType;
+    org.refactor.modelEditor.Class oldSuperClass = superClass;
+    superClass = newSuperClass;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelEditorPackage.CLASS__SUPER_TYPE, oldSuperType, superType));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelEditorPackage.CLASS__SUPER_CLASS, oldSuperClass, superClass));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<org.refactor.modelEditor.Class> getSuperTypes()
+  {
+    if (superTypes == null)
+    {
+      superTypes = new EObjectResolvingEList<org.refactor.modelEditor.Class>(org.refactor.modelEditor.Class.class, this, ModelEditorPackage.CLASS__SUPER_TYPES);
+    }
+    return superTypes;
   }
 
   /**
@@ -282,9 +308,11 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
         return getModifier();
       case ModelEditorPackage.CLASS__NAME:
         return getName();
-      case ModelEditorPackage.CLASS__SUPER_TYPE:
-        if (resolve) return getSuperType();
-        return basicGetSuperType();
+      case ModelEditorPackage.CLASS__SUPER_CLASS:
+        if (resolve) return getSuperClass();
+        return basicGetSuperClass();
+      case ModelEditorPackage.CLASS__SUPER_TYPES:
+        return getSuperTypes();
       case ModelEditorPackage.CLASS__FIELDS:
         return getFields();
       case ModelEditorPackage.CLASS__METHODS:
@@ -310,8 +338,12 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
       case ModelEditorPackage.CLASS__NAME:
         setName((String)newValue);
         return;
-      case ModelEditorPackage.CLASS__SUPER_TYPE:
-        setSuperType((org.refactor.modelEditor.Class)newValue);
+      case ModelEditorPackage.CLASS__SUPER_CLASS:
+        setSuperClass((org.refactor.modelEditor.Class)newValue);
+        return;
+      case ModelEditorPackage.CLASS__SUPER_TYPES:
+        getSuperTypes().clear();
+        getSuperTypes().addAll((Collection<? extends org.refactor.modelEditor.Class>)newValue);
         return;
       case ModelEditorPackage.CLASS__FIELDS:
         getFields().clear();
@@ -341,8 +373,11 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
       case ModelEditorPackage.CLASS__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ModelEditorPackage.CLASS__SUPER_TYPE:
-        setSuperType((org.refactor.modelEditor.Class)null);
+      case ModelEditorPackage.CLASS__SUPER_CLASS:
+        setSuperClass((org.refactor.modelEditor.Class)null);
+        return;
+      case ModelEditorPackage.CLASS__SUPER_TYPES:
+        getSuperTypes().clear();
         return;
       case ModelEditorPackage.CLASS__FIELDS:
         getFields().clear();
@@ -368,8 +403,10 @@ public class ClassImpl extends MinimalEObjectImpl.Container implements org.refac
         return MODIFIER_EDEFAULT == null ? modifier != null : !MODIFIER_EDEFAULT.equals(modifier);
       case ModelEditorPackage.CLASS__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ModelEditorPackage.CLASS__SUPER_TYPE:
-        return superType != null;
+      case ModelEditorPackage.CLASS__SUPER_CLASS:
+        return superClass != null;
+      case ModelEditorPackage.CLASS__SUPER_TYPES:
+        return superTypes != null && !superTypes.isEmpty();
       case ModelEditorPackage.CLASS__FIELDS:
         return fields != null && !fields.isEmpty();
       case ModelEditorPackage.CLASS__METHODS:

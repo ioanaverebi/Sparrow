@@ -318,7 +318,7 @@ ruleClass returns [EObject current=null]
 						}
 					}
 					{
-						newCompositeNode(grammarAccess.getClassAccess().getSuperTypeClassCrossReference_3_1_0());
+						newCompositeNode(grammarAccess.getClassAccess().getSuperClassClassCrossReference_3_1_0());
 					}
 					ruleQualifiedName
 					{
@@ -328,16 +328,38 @@ ruleClass returns [EObject current=null]
 			)
 		)?
 		(
-			this_BEGIN_5=RULE_BEGIN
+			otherlv_5=Implements
 			{
-				newLeafNode(this_BEGIN_5, grammarAccess.getClassAccess().getBEGINTerminalRuleCall_4_0());
+				newLeafNode(otherlv_5, grammarAccess.getClassAccess().getImplementsKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getClassAccess().getFieldsFieldParserRuleCall_4_1_0());
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getClassRule());
+						}
 					}
-					lv_fields_6_0=ruleField
+					{
+						newCompositeNode(grammarAccess.getClassAccess().getSuperTypesClassCrossReference_4_1_0());
+					}
+					ruleQualifiedName
+					{
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)*
+		)?
+		(
+			this_BEGIN_7=RULE_BEGIN
+			{
+				newLeafNode(this_BEGIN_7, grammarAccess.getClassAccess().getBEGINTerminalRuleCall_5_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getClassAccess().getFieldsFieldParserRuleCall_5_1_0());
+					}
+					lv_fields_8_0=ruleField
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getClassRule());
@@ -345,7 +367,7 @@ ruleClass returns [EObject current=null]
 						add(
 							$current,
 							"fields",
-							lv_fields_6_0,
+							lv_fields_8_0,
 							"org.refactor.ModelEditor.Field");
 						afterParserOrEnumRuleCall();
 					}
@@ -354,9 +376,9 @@ ruleClass returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getClassAccess().getMethodsMethodParserRuleCall_4_2_0());
+						newCompositeNode(grammarAccess.getClassAccess().getMethodsMethodParserRuleCall_5_2_0());
 					}
-					lv_methods_7_0=ruleMethod
+					lv_methods_9_0=ruleMethod
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getClassRule());
@@ -364,15 +386,15 @@ ruleClass returns [EObject current=null]
 						add(
 							$current,
 							"methods",
-							lv_methods_7_0,
+							lv_methods_9_0,
 							"org.refactor.ModelEditor.Method");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)*
-			this_END_8=RULE_END
+			this_END_10=RULE_END
 			{
-				newLeafNode(this_END_8, grammarAccess.getClassAccess().getENDTerminalRuleCall_4_3());
+				newLeafNode(this_END_10, grammarAccess.getClassAccess().getENDTerminalRuleCall_5_3());
 			}
 		)?
 	)

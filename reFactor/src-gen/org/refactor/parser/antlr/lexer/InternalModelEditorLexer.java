@@ -12,38 +12,39 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalModelEditorLexer extends Lexer {
-    public static final int RULE_END=27;
-    public static final int Import=10;
-    public static final int RULE_BEGIN=26;
-    public static final int Constant=6;
-    public static final int Access=9;
-    public static final int RULE_STRING=30;
-    public static final int RULE_SL_COMMENT=32;
-    public static final int Comma=23;
-    public static final int LeftParenthesis=21;
-    public static final int Accesses=5;
-    public static final int Private=8;
-    public static final int To=20;
-    public static final int Colon=25;
-    public static final int Extends=7;
+    public static final int RULE_END=28;
+    public static final int Import=11;
+    public static final int RULE_BEGIN=27;
+    public static final int Constant=7;
+    public static final int Access=10;
+    public static final int RULE_STRING=31;
+    public static final int RULE_SL_COMMENT=33;
+    public static final int Comma=24;
+    public static final int Implements=4;
+    public static final int LeftParenthesis=22;
+    public static final int Accesses=6;
+    public static final int Private=9;
+    public static final int To=21;
+    public static final int Colon=26;
+    public static final int Extends=8;
     public static final int EOF=-1;
-    public static final int Call=16;
-    public static final int FullStop=24;
-    public static final int Protected=4;
-    public static final int RULE_ID=28;
-    public static final int RULE_WS=33;
-    public static final int Calls=12;
-    public static final int RightParenthesis=22;
-    public static final int Public=11;
-    public static final int RULE_ANY_OTHER=34;
-    public static final int Code=17;
-    public static final int RULE_INT=29;
-    public static final int FullStopAsterisk=18;
-    public static final int Of=19;
-    public static final int Cyclo=14;
-    public static final int RULE_ML_COMMENT=31;
-    public static final int Class=13;
-    public static final int Lines=15;
+    public static final int Call=17;
+    public static final int FullStop=25;
+    public static final int Protected=5;
+    public static final int RULE_ID=29;
+    public static final int RULE_WS=34;
+    public static final int Calls=13;
+    public static final int RightParenthesis=23;
+    public static final int Public=12;
+    public static final int RULE_ANY_OTHER=35;
+    public static final int Code=18;
+    public static final int RULE_INT=30;
+    public static final int FullStopAsterisk=19;
+    public static final int Of=20;
+    public static final int Cyclo=15;
+    public static final int RULE_ML_COMMENT=32;
+    public static final int Class=14;
+    public static final int Lines=16;
 
     // delegates
     // delegators
@@ -58,13 +59,34 @@ public class InternalModelEditorLexer extends Lexer {
     }
     public String getGrammarFileName() { return "InternalModelEditorLexer.g"; }
 
+    // $ANTLR start "Implements"
+    public final void mImplements() throws RecognitionException {
+        try {
+            int _type = Implements;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalModelEditorLexer.g:14:12: ( 'implements' )
+            // InternalModelEditorLexer.g:14:14: 'implements'
+            {
+            match("implements"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Implements"
+
     // $ANTLR start "Protected"
     public final void mProtected() throws RecognitionException {
         try {
             int _type = Protected;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:14:11: ( 'protected' )
-            // InternalModelEditorLexer.g:14:13: 'protected'
+            // InternalModelEditorLexer.g:16:11: ( 'protected' )
+            // InternalModelEditorLexer.g:16:13: 'protected'
             {
             match("protected"); 
 
@@ -84,8 +106,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Accesses;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:16:10: ( 'accesses' )
-            // InternalModelEditorLexer.g:16:12: 'accesses'
+            // InternalModelEditorLexer.g:18:10: ( 'accesses' )
+            // InternalModelEditorLexer.g:18:12: 'accesses'
             {
             match("accesses"); 
 
@@ -105,8 +127,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Constant;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:18:10: ( 'constant' )
-            // InternalModelEditorLexer.g:18:12: 'constant'
+            // InternalModelEditorLexer.g:20:10: ( 'constant' )
+            // InternalModelEditorLexer.g:20:12: 'constant'
             {
             match("constant"); 
 
@@ -126,8 +148,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Extends;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:20:9: ( 'extends' )
-            // InternalModelEditorLexer.g:20:11: 'extends'
+            // InternalModelEditorLexer.g:22:9: ( 'extends' )
+            // InternalModelEditorLexer.g:22:11: 'extends'
             {
             match("extends"); 
 
@@ -147,8 +169,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Private;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:22:9: ( 'private' )
-            // InternalModelEditorLexer.g:22:11: 'private'
+            // InternalModelEditorLexer.g:24:9: ( 'private' )
+            // InternalModelEditorLexer.g:24:11: 'private'
             {
             match("private"); 
 
@@ -168,8 +190,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Access;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:24:8: ( 'access' )
-            // InternalModelEditorLexer.g:24:10: 'access'
+            // InternalModelEditorLexer.g:26:8: ( 'access' )
+            // InternalModelEditorLexer.g:26:10: 'access'
             {
             match("access"); 
 
@@ -189,8 +211,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Import;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:26:8: ( 'import' )
-            // InternalModelEditorLexer.g:26:10: 'import'
+            // InternalModelEditorLexer.g:28:8: ( 'import' )
+            // InternalModelEditorLexer.g:28:10: 'import'
             {
             match("import"); 
 
@@ -210,8 +232,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Public;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:28:8: ( 'public' )
-            // InternalModelEditorLexer.g:28:10: 'public'
+            // InternalModelEditorLexer.g:30:8: ( 'public' )
+            // InternalModelEditorLexer.g:30:10: 'public'
             {
             match("public"); 
 
@@ -231,8 +253,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Calls;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:30:7: ( 'calls' )
-            // InternalModelEditorLexer.g:30:9: 'calls'
+            // InternalModelEditorLexer.g:32:7: ( 'calls' )
+            // InternalModelEditorLexer.g:32:9: 'calls'
             {
             match("calls"); 
 
@@ -252,8 +274,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Class;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:32:7: ( 'class' )
-            // InternalModelEditorLexer.g:32:9: 'class'
+            // InternalModelEditorLexer.g:34:7: ( 'class' )
+            // InternalModelEditorLexer.g:34:9: 'class'
             {
             match("class"); 
 
@@ -273,8 +295,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Cyclo;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:34:7: ( 'cyclo' )
-            // InternalModelEditorLexer.g:34:9: 'cyclo'
+            // InternalModelEditorLexer.g:36:7: ( 'cyclo' )
+            // InternalModelEditorLexer.g:36:9: 'cyclo'
             {
             match("cyclo"); 
 
@@ -294,8 +316,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Lines;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:36:7: ( 'lines' )
-            // InternalModelEditorLexer.g:36:9: 'lines'
+            // InternalModelEditorLexer.g:38:7: ( 'lines' )
+            // InternalModelEditorLexer.g:38:9: 'lines'
             {
             match("lines"); 
 
@@ -315,8 +337,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Call;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:38:6: ( 'call' )
-            // InternalModelEditorLexer.g:38:8: 'call'
+            // InternalModelEditorLexer.g:40:6: ( 'call' )
+            // InternalModelEditorLexer.g:40:8: 'call'
             {
             match("call"); 
 
@@ -336,8 +358,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Code;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:40:6: ( 'code' )
-            // InternalModelEditorLexer.g:40:8: 'code'
+            // InternalModelEditorLexer.g:42:6: ( 'code' )
+            // InternalModelEditorLexer.g:42:8: 'code'
             {
             match("code"); 
 
@@ -357,8 +379,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = FullStopAsterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:42:18: ( '.*' )
-            // InternalModelEditorLexer.g:42:20: '.*'
+            // InternalModelEditorLexer.g:44:18: ( '.*' )
+            // InternalModelEditorLexer.g:44:20: '.*'
             {
             match(".*"); 
 
@@ -378,8 +400,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Of;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:44:4: ( 'of' )
-            // InternalModelEditorLexer.g:44:6: 'of'
+            // InternalModelEditorLexer.g:46:4: ( 'of' )
+            // InternalModelEditorLexer.g:46:6: 'of'
             {
             match("of"); 
 
@@ -399,8 +421,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = To;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:46:4: ( 'to' )
-            // InternalModelEditorLexer.g:46:6: 'to'
+            // InternalModelEditorLexer.g:48:4: ( 'to' )
+            // InternalModelEditorLexer.g:48:6: 'to'
             {
             match("to"); 
 
@@ -420,8 +442,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = LeftParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:48:17: ( '(' )
-            // InternalModelEditorLexer.g:48:19: '('
+            // InternalModelEditorLexer.g:50:17: ( '(' )
+            // InternalModelEditorLexer.g:50:19: '('
             {
             match('('); 
 
@@ -440,8 +462,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RightParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:50:18: ( ')' )
-            // InternalModelEditorLexer.g:50:20: ')'
+            // InternalModelEditorLexer.g:52:18: ( ')' )
+            // InternalModelEditorLexer.g:52:20: ')'
             {
             match(')'); 
 
@@ -460,8 +482,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:52:7: ( ',' )
-            // InternalModelEditorLexer.g:52:9: ','
+            // InternalModelEditorLexer.g:54:7: ( ',' )
+            // InternalModelEditorLexer.g:54:9: ','
             {
             match(','); 
 
@@ -480,8 +502,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:54:10: ( '.' )
-            // InternalModelEditorLexer.g:54:12: '.'
+            // InternalModelEditorLexer.g:56:10: ( '.' )
+            // InternalModelEditorLexer.g:56:12: '.'
             {
             match('.'); 
 
@@ -500,8 +522,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:56:7: ( ':' )
-            // InternalModelEditorLexer.g:56:9: ':'
+            // InternalModelEditorLexer.g:58:7: ( ':' )
+            // InternalModelEditorLexer.g:58:9: ':'
             {
             match(':'); 
 
@@ -518,8 +540,8 @@ public class InternalModelEditorLexer extends Lexer {
     // $ANTLR start "RULE_BEGIN"
     public final void mRULE_BEGIN() throws RecognitionException {
         try {
-            // InternalModelEditorLexer.g:60:21: ()
-            // InternalModelEditorLexer.g:60:23: 
+            // InternalModelEditorLexer.g:62:21: ()
+            // InternalModelEditorLexer.g:62:23: 
             {
             }
 
@@ -532,8 +554,8 @@ public class InternalModelEditorLexer extends Lexer {
     // $ANTLR start "RULE_END"
     public final void mRULE_END() throws RecognitionException {
         try {
-            // InternalModelEditorLexer.g:62:19: ()
-            // InternalModelEditorLexer.g:62:21: 
+            // InternalModelEditorLexer.g:64:19: ()
+            // InternalModelEditorLexer.g:64:21: 
             {
             }
 
@@ -548,10 +570,10 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:64:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalModelEditorLexer.g:64:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalModelEditorLexer.g:66:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalModelEditorLexer.g:66:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalModelEditorLexer.g:64:11: ( '^' )?
+            // InternalModelEditorLexer.g:66:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -560,7 +582,7 @@ public class InternalModelEditorLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalModelEditorLexer.g:64:11: '^'
+                    // InternalModelEditorLexer.g:66:11: '^'
                     {
                     match('^'); 
 
@@ -578,7 +600,7 @@ public class InternalModelEditorLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalModelEditorLexer.g:64:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalModelEditorLexer.g:66:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -627,10 +649,10 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:66:10: ( ( '0' .. '9' )+ )
-            // InternalModelEditorLexer.g:66:12: ( '0' .. '9' )+
+            // InternalModelEditorLexer.g:68:10: ( ( '0' .. '9' )+ )
+            // InternalModelEditorLexer.g:68:12: ( '0' .. '9' )+
             {
-            // InternalModelEditorLexer.g:66:12: ( '0' .. '9' )+
+            // InternalModelEditorLexer.g:68:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -644,7 +666,7 @@ public class InternalModelEditorLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalModelEditorLexer.g:66:13: '0' .. '9'
+            	    // InternalModelEditorLexer.g:68:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -676,10 +698,10 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:68:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalModelEditorLexer.g:68:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalModelEditorLexer.g:70:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalModelEditorLexer.g:70:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalModelEditorLexer.g:68:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalModelEditorLexer.g:70:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -697,10 +719,10 @@ public class InternalModelEditorLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalModelEditorLexer.g:68:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalModelEditorLexer.g:70:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalModelEditorLexer.g:68:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalModelEditorLexer.g:70:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -716,7 +738,7 @@ public class InternalModelEditorLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalModelEditorLexer.g:68:21: '\\\\' .
+                    	    // InternalModelEditorLexer.g:70:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -724,7 +746,7 @@ public class InternalModelEditorLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalModelEditorLexer.g:68:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalModelEditorLexer.g:70:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -749,10 +771,10 @@ public class InternalModelEditorLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalModelEditorLexer.g:68:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalModelEditorLexer.g:70:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalModelEditorLexer.g:68:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalModelEditorLexer.g:70:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -768,7 +790,7 @@ public class InternalModelEditorLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalModelEditorLexer.g:68:54: '\\\\' .
+                    	    // InternalModelEditorLexer.g:70:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -776,7 +798,7 @@ public class InternalModelEditorLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalModelEditorLexer.g:68:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalModelEditorLexer.g:70:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -819,12 +841,12 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:70:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalModelEditorLexer.g:70:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalModelEditorLexer.g:72:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalModelEditorLexer.g:72:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalModelEditorLexer.g:70:24: ( options {greedy=false; } : . )*
+            // InternalModelEditorLexer.g:72:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -849,7 +871,7 @@ public class InternalModelEditorLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalModelEditorLexer.g:70:52: .
+            	    // InternalModelEditorLexer.g:72:52: .
             	    {
             	    matchAny(); 
 
@@ -879,12 +901,12 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:72:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalModelEditorLexer.g:72:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalModelEditorLexer.g:74:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalModelEditorLexer.g:74:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalModelEditorLexer.g:72:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalModelEditorLexer.g:74:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -897,7 +919,7 @@ public class InternalModelEditorLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalModelEditorLexer.g:72:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalModelEditorLexer.g:74:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -917,7 +939,7 @@ public class InternalModelEditorLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalModelEditorLexer.g:72:40: ( ( '\\r' )? '\\n' )?
+            // InternalModelEditorLexer.g:74:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -926,9 +948,9 @@ public class InternalModelEditorLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalModelEditorLexer.g:72:41: ( '\\r' )? '\\n'
+                    // InternalModelEditorLexer.g:74:41: ( '\\r' )? '\\n'
                     {
-                    // InternalModelEditorLexer.g:72:41: ( '\\r' )?
+                    // InternalModelEditorLexer.g:74:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -937,7 +959,7 @@ public class InternalModelEditorLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalModelEditorLexer.g:72:41: '\\r'
+                            // InternalModelEditorLexer.g:74:41: '\\r'
                             {
                             match('\r'); 
 
@@ -969,10 +991,10 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:74:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalModelEditorLexer.g:74:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalModelEditorLexer.g:76:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalModelEditorLexer.g:76:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalModelEditorLexer.g:74:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalModelEditorLexer.g:76:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -1026,8 +1048,8 @@ public class InternalModelEditorLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalModelEditorLexer.g:76:16: ( . )
-            // InternalModelEditorLexer.g:76:18: .
+            // InternalModelEditorLexer.g:78:16: ( . )
+            // InternalModelEditorLexer.g:78:18: .
             {
             matchAny(); 
 
@@ -1042,208 +1064,215 @@ public class InternalModelEditorLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // InternalModelEditorLexer.g:1:8: ( Protected | Accesses | Constant | Extends | Private | Access | Import | Public | Calls | Class | Cyclo | Lines | Call | Code | FullStopAsterisk | Of | To | LeftParenthesis | RightParenthesis | Comma | FullStop | Colon | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=29;
+        // InternalModelEditorLexer.g:1:8: ( Implements | Protected | Accesses | Constant | Extends | Private | Access | Import | Public | Calls | Class | Cyclo | Lines | Call | Code | FullStopAsterisk | Of | To | LeftParenthesis | RightParenthesis | Comma | FullStop | Colon | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=30;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // InternalModelEditorLexer.g:1:10: Protected
+                // InternalModelEditorLexer.g:1:10: Implements
+                {
+                mImplements(); 
+
+                }
+                break;
+            case 2 :
+                // InternalModelEditorLexer.g:1:21: Protected
                 {
                 mProtected(); 
 
                 }
                 break;
-            case 2 :
-                // InternalModelEditorLexer.g:1:20: Accesses
+            case 3 :
+                // InternalModelEditorLexer.g:1:31: Accesses
                 {
                 mAccesses(); 
 
                 }
                 break;
-            case 3 :
-                // InternalModelEditorLexer.g:1:29: Constant
+            case 4 :
+                // InternalModelEditorLexer.g:1:40: Constant
                 {
                 mConstant(); 
 
                 }
                 break;
-            case 4 :
-                // InternalModelEditorLexer.g:1:38: Extends
+            case 5 :
+                // InternalModelEditorLexer.g:1:49: Extends
                 {
                 mExtends(); 
 
                 }
                 break;
-            case 5 :
-                // InternalModelEditorLexer.g:1:46: Private
+            case 6 :
+                // InternalModelEditorLexer.g:1:57: Private
                 {
                 mPrivate(); 
 
                 }
                 break;
-            case 6 :
-                // InternalModelEditorLexer.g:1:54: Access
+            case 7 :
+                // InternalModelEditorLexer.g:1:65: Access
                 {
                 mAccess(); 
 
                 }
                 break;
-            case 7 :
-                // InternalModelEditorLexer.g:1:61: Import
+            case 8 :
+                // InternalModelEditorLexer.g:1:72: Import
                 {
                 mImport(); 
 
                 }
                 break;
-            case 8 :
-                // InternalModelEditorLexer.g:1:68: Public
+            case 9 :
+                // InternalModelEditorLexer.g:1:79: Public
                 {
                 mPublic(); 
 
                 }
                 break;
-            case 9 :
-                // InternalModelEditorLexer.g:1:75: Calls
+            case 10 :
+                // InternalModelEditorLexer.g:1:86: Calls
                 {
                 mCalls(); 
 
                 }
                 break;
-            case 10 :
-                // InternalModelEditorLexer.g:1:81: Class
+            case 11 :
+                // InternalModelEditorLexer.g:1:92: Class
                 {
                 mClass(); 
 
                 }
                 break;
-            case 11 :
-                // InternalModelEditorLexer.g:1:87: Cyclo
+            case 12 :
+                // InternalModelEditorLexer.g:1:98: Cyclo
                 {
                 mCyclo(); 
 
                 }
                 break;
-            case 12 :
-                // InternalModelEditorLexer.g:1:93: Lines
+            case 13 :
+                // InternalModelEditorLexer.g:1:104: Lines
                 {
                 mLines(); 
 
                 }
                 break;
-            case 13 :
-                // InternalModelEditorLexer.g:1:99: Call
+            case 14 :
+                // InternalModelEditorLexer.g:1:110: Call
                 {
                 mCall(); 
 
                 }
                 break;
-            case 14 :
-                // InternalModelEditorLexer.g:1:104: Code
+            case 15 :
+                // InternalModelEditorLexer.g:1:115: Code
                 {
                 mCode(); 
 
                 }
                 break;
-            case 15 :
-                // InternalModelEditorLexer.g:1:109: FullStopAsterisk
+            case 16 :
+                // InternalModelEditorLexer.g:1:120: FullStopAsterisk
                 {
                 mFullStopAsterisk(); 
 
                 }
                 break;
-            case 16 :
-                // InternalModelEditorLexer.g:1:126: Of
+            case 17 :
+                // InternalModelEditorLexer.g:1:137: Of
                 {
                 mOf(); 
 
                 }
                 break;
-            case 17 :
-                // InternalModelEditorLexer.g:1:129: To
+            case 18 :
+                // InternalModelEditorLexer.g:1:140: To
                 {
                 mTo(); 
 
                 }
                 break;
-            case 18 :
-                // InternalModelEditorLexer.g:1:132: LeftParenthesis
+            case 19 :
+                // InternalModelEditorLexer.g:1:143: LeftParenthesis
                 {
                 mLeftParenthesis(); 
 
                 }
                 break;
-            case 19 :
-                // InternalModelEditorLexer.g:1:148: RightParenthesis
+            case 20 :
+                // InternalModelEditorLexer.g:1:159: RightParenthesis
                 {
                 mRightParenthesis(); 
 
                 }
                 break;
-            case 20 :
-                // InternalModelEditorLexer.g:1:165: Comma
+            case 21 :
+                // InternalModelEditorLexer.g:1:176: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 21 :
-                // InternalModelEditorLexer.g:1:171: FullStop
+            case 22 :
+                // InternalModelEditorLexer.g:1:182: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
-            case 22 :
-                // InternalModelEditorLexer.g:1:180: Colon
+            case 23 :
+                // InternalModelEditorLexer.g:1:191: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 23 :
-                // InternalModelEditorLexer.g:1:186: RULE_ID
+            case 24 :
+                // InternalModelEditorLexer.g:1:197: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 24 :
-                // InternalModelEditorLexer.g:1:194: RULE_INT
+            case 25 :
+                // InternalModelEditorLexer.g:1:205: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 25 :
-                // InternalModelEditorLexer.g:1:203: RULE_STRING
+            case 26 :
+                // InternalModelEditorLexer.g:1:214: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 26 :
-                // InternalModelEditorLexer.g:1:215: RULE_ML_COMMENT
+            case 27 :
+                // InternalModelEditorLexer.g:1:226: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 27 :
-                // InternalModelEditorLexer.g:1:231: RULE_SL_COMMENT
+            case 28 :
+                // InternalModelEditorLexer.g:1:242: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 28 :
-                // InternalModelEditorLexer.g:1:247: RULE_WS
+            case 29 :
+                // InternalModelEditorLexer.g:1:258: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 29 :
-                // InternalModelEditorLexer.g:1:255: RULE_ANY_OTHER
+            case 30 :
+                // InternalModelEditorLexer.g:1:266: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1257,23 +1286,23 @@ public class InternalModelEditorLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\6\30\1\42\2\30\4\uffff\1\25\2\uffff\3\25\2\uffff\2\30\1\uffff\10\30\2\uffff\1\72\1\73\11\uffff\14\30\2\uffff\5\30\1\115\1\117\12\30\1\uffff\1\132\1\uffff\1\133\1\134\2\30\1\137\2\30\1\142\1\144\1\30\3\uffff\1\30\1\147\1\uffff\1\30\1\151\1\uffff\1\30\1\uffff\1\30\1\154\1\uffff\1\30\1\uffff\1\156\1\157\1\uffff\1\160\3\uffff";
+        "\1\uffff\6\27\1\42\2\27\4\uffff\1\25\2\uffff\3\25\2\uffff\1\27\1\uffff\11\27\2\uffff\1\72\1\73\11\uffff\14\27\2\uffff\7\27\1\120\1\122\13\27\1\uffff\1\136\1\uffff\1\137\1\140\1\27\1\142\1\27\1\144\2\27\1\147\1\151\1\27\3\uffff\1\27\1\uffff\1\27\1\uffff\1\27\1\156\1\uffff\1\27\1\uffff\1\27\1\161\2\27\1\uffff\1\164\1\165\1\uffff\1\27\1\167\2\uffff\1\170\2\uffff";
     static final String DFA12_eofS =
-        "\161\uffff";
+        "\171\uffff";
     static final String DFA12_minS =
-        "\1\0\1\162\1\143\1\141\1\170\1\155\1\151\1\52\1\146\1\157\4\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1\151\1\142\1\uffff\1\143\1\144\1\154\1\141\1\143\1\164\1\160\1\156\2\uffff\2\60\11\uffff\1\164\1\166\1\154\1\145\1\163\1\145\1\154\1\163\1\154\1\145\1\157\1\145\2\uffff\1\145\1\141\1\151\1\163\1\164\2\60\1\163\1\157\1\156\1\162\1\163\1\143\1\164\1\143\1\163\1\141\1\uffff\1\60\1\uffff\2\60\1\144\1\164\1\60\1\164\1\145\2\60\1\156\3\uffff\1\163\1\60\1\uffff\1\145\1\60\1\uffff\1\163\1\uffff\1\164\1\60\1\uffff\1\144\1\uffff\2\60\1\uffff\1\60\3\uffff";
+        "\1\0\1\155\1\162\1\143\1\141\1\170\1\151\1\52\1\146\1\157\4\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1\160\1\uffff\1\151\1\142\1\143\1\144\1\154\1\141\1\143\1\164\1\156\2\uffff\2\60\11\uffff\1\154\1\164\1\166\1\154\1\145\1\163\1\145\1\154\1\163\1\154\2\145\2\uffff\1\145\1\162\1\145\1\141\1\151\1\163\1\164\2\60\1\163\1\157\1\156\1\163\1\155\1\164\1\143\1\164\1\143\1\163\1\141\1\uffff\1\60\1\uffff\2\60\1\144\1\60\1\145\1\60\1\164\1\145\2\60\1\156\3\uffff\1\163\1\uffff\1\156\1\uffff\1\145\1\60\1\uffff\1\163\1\uffff\1\164\1\60\1\164\1\144\1\uffff\2\60\1\uffff\1\163\1\60\2\uffff\1\60\2\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\165\1\143\1\171\1\170\1\155\1\151\1\52\1\146\1\157\4\uffff\1\172\2\uffff\2\uffff\1\57\2\uffff\1\157\1\142\1\uffff\1\143\1\156\1\154\1\141\1\143\1\164\1\160\1\156\2\uffff\2\172\11\uffff\1\164\1\166\1\154\1\145\1\163\1\145\1\154\1\163\1\154\1\145\1\157\1\145\2\uffff\1\145\1\141\1\151\1\163\1\164\2\172\1\163\1\157\1\156\1\162\1\163\1\143\1\164\1\143\1\163\1\141\1\uffff\1\172\1\uffff\2\172\1\144\1\164\1\172\1\164\1\145\2\172\1\156\3\uffff\1\163\1\172\1\uffff\1\145\1\172\1\uffff\1\163\1\uffff\1\164\1\172\1\uffff\1\144\1\uffff\2\172\1\uffff\1\172\3\uffff";
+        "\1\uffff\1\155\1\165\1\143\1\171\1\170\1\151\1\52\1\146\1\157\4\uffff\1\172\2\uffff\2\uffff\1\57\2\uffff\1\160\1\uffff\1\157\1\142\1\143\1\156\1\154\1\141\1\143\1\164\1\156\2\uffff\2\172\11\uffff\1\157\1\164\1\166\1\154\1\145\1\163\1\145\1\154\1\163\1\154\2\145\2\uffff\1\145\1\162\1\145\1\141\1\151\1\163\1\164\2\172\1\163\1\157\1\156\1\163\1\155\1\164\1\143\1\164\1\143\1\163\1\141\1\uffff\1\172\1\uffff\2\172\1\144\1\172\1\145\1\172\1\164\1\145\2\172\1\156\3\uffff\1\163\1\uffff\1\156\1\uffff\1\145\1\172\1\uffff\1\163\1\uffff\1\164\1\172\1\164\1\144\1\uffff\2\172\1\uffff\1\163\1\172\2\uffff\1\172\2\uffff";
     static final String DFA12_acceptS =
-        "\12\uffff\1\22\1\23\1\24\1\26\1\uffff\1\27\1\30\3\uffff\1\34\1\35\2\uffff\1\27\10\uffff\1\17\1\25\2\uffff\1\22\1\23\1\24\1\26\1\30\1\31\1\32\1\33\1\34\14\uffff\1\20\1\21\21\uffff\1\16\1\uffff\1\15\12\uffff\1\11\1\12\1\13\2\uffff\1\14\2\uffff\1\10\1\uffff\1\6\2\uffff\1\7\1\uffff\1\5\2\uffff\1\4\1\uffff\1\2\1\3\1\1";
+        "\12\uffff\1\23\1\24\1\25\1\27\1\uffff\1\30\1\31\3\uffff\1\35\1\36\1\uffff\1\30\11\uffff\1\20\1\26\2\uffff\1\23\1\24\1\25\1\27\1\31\1\32\1\33\1\34\1\35\14\uffff\1\21\1\22\24\uffff\1\17\1\uffff\1\16\13\uffff\1\12\1\13\1\14\1\uffff\1\15\1\uffff\1\10\2\uffff\1\11\1\uffff\1\7\4\uffff\1\6\2\uffff\1\5\2\uffff\1\3\1\4\1\uffff\1\2\1\1";
     static final String DFA12_specialS =
-        "\1\2\20\uffff\1\1\1\0\136\uffff}>";
+        "\1\2\20\uffff\1\0\1\1\146\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\25\2\24\2\25\1\24\22\25\1\24\1\25\1\21\4\25\1\22\1\12\1\13\2\25\1\14\1\25\1\7\1\23\12\20\1\15\6\25\32\17\3\25\1\16\1\17\1\25\1\2\1\17\1\3\1\17\1\4\3\17\1\5\2\17\1\6\2\17\1\10\1\1\3\17\1\11\6\17\uff85\25",
-            "\1\26\2\uffff\1\27",
-            "\1\31",
-            "\1\33\12\uffff\1\34\2\uffff\1\32\11\uffff\1\35",
-            "\1\36",
+            "\11\25\2\24\2\25\1\24\22\25\1\24\1\25\1\21\4\25\1\22\1\12\1\13\2\25\1\14\1\25\1\7\1\23\12\20\1\15\6\25\32\17\3\25\1\16\1\17\1\25\1\3\1\17\1\4\1\17\1\5\3\17\1\1\2\17\1\6\2\17\1\10\1\2\3\17\1\11\6\17\uff85\25",
+            "\1\26",
+            "\1\30\2\uffff\1\31",
+            "\1\32",
+            "\1\34\12\uffff\1\35\2\uffff\1\33\11\uffff\1\36",
             "\1\37",
             "\1\40",
             "\1\41",
@@ -1283,7 +1312,7 @@ public class InternalModelEditorLexer extends Lexer {
             "",
             "",
             "",
-            "\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\32\27\4\uffff\1\27\1\uffff\32\27",
             "",
             "",
             "\0\52",
@@ -1291,12 +1320,12 @@ public class InternalModelEditorLexer extends Lexer {
             "\1\53\4\uffff\1\54",
             "",
             "",
-            "\1\57\5\uffff\1\56",
-            "\1\60",
+            "\1\56",
             "",
+            "\1\60\5\uffff\1\57",
             "\1\61",
-            "\1\63\11\uffff\1\62",
-            "\1\64",
+            "\1\62",
+            "\1\64\11\uffff\1\63",
             "\1\65",
             "\1\66",
             "\1\67",
@@ -1304,8 +1333,8 @@ public class InternalModelEditorLexer extends Lexer {
             "\1\71",
             "",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "",
             "",
             "",
@@ -1315,8 +1344,7 @@ public class InternalModelEditorLexer extends Lexer {
             "",
             "",
             "",
-            "\1\74",
-            "\1\75",
+            "\1\74\2\uffff\1\75",
             "\1\76",
             "\1\77",
             "\1\100",
@@ -1327,18 +1355,18 @@ public class InternalModelEditorLexer extends Lexer {
             "\1\105",
             "\1\106",
             "\1\107",
-            "",
-            "",
             "\1\110",
+            "",
+            "",
             "\1\111",
             "\1\112",
             "\1\113",
             "\1\114",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\22\30\1\116\7\30",
-            "\1\120",
-            "\1\121",
-            "\1\122",
+            "\1\115",
+            "\1\116",
+            "\1\117",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\22\27\1\121\7\27",
             "\1\123",
             "\1\124",
             "\1\125",
@@ -1346,40 +1374,49 @@ public class InternalModelEditorLexer extends Lexer {
             "\1\127",
             "\1\130",
             "\1\131",
-            "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\132",
+            "\1\133",
+            "\1\134",
             "\1\135",
-            "\1\136",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\140",
+            "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "\1\141",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30\1\143\25\30",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\143",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "\1\145",
-            "",
-            "",
-            "",
             "\1\146",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "\1\150",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\4\27\1\150\25\27",
             "\1\152",
             "",
+            "",
+            "",
             "\1\153",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "",
+            "\1\154",
             "",
             "\1\155",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\157",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\160",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\162",
+            "\1\163",
             "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\166",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "",
             ""
     };
@@ -1414,23 +1451,13 @@ public class InternalModelEditorLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Protected | Accesses | Constant | Extends | Private | Access | Import | Public | Calls | Class | Cyclo | Lines | Call | Code | FullStopAsterisk | Of | To | LeftParenthesis | RightParenthesis | Comma | FullStop | Colon | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( Implements | Protected | Accesses | Constant | Extends | Private | Access | Import | Public | Calls | Class | Cyclo | Lines | Call | Code | FullStopAsterisk | Of | To | LeftParenthesis | RightParenthesis | Comma | FullStop | Colon | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_18 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_18>='\u0000' && LA12_18<='\uFFFF')) ) {s = 42;}
-
-                        else s = 21;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA12_17 = input.LA(1);
 
                         s = -1;
@@ -1440,19 +1467,29 @@ public class InternalModelEditorLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
+                    case 1 : 
+                        int LA12_18 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_18>='\u0000' && LA12_18<='\uFFFF')) ) {s = 42;}
+
+                        else s = 21;
+
+                        if ( s>=0 ) return s;
+                        break;
                     case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA12_0=='p') ) {s = 1;}
+                        if ( (LA12_0=='i') ) {s = 1;}
 
-                        else if ( (LA12_0=='a') ) {s = 2;}
+                        else if ( (LA12_0=='p') ) {s = 2;}
 
-                        else if ( (LA12_0=='c') ) {s = 3;}
+                        else if ( (LA12_0=='a') ) {s = 3;}
 
-                        else if ( (LA12_0=='e') ) {s = 4;}
+                        else if ( (LA12_0=='c') ) {s = 4;}
 
-                        else if ( (LA12_0=='i') ) {s = 5;}
+                        else if ( (LA12_0=='e') ) {s = 5;}
 
                         else if ( (LA12_0=='l') ) {s = 6;}
 
