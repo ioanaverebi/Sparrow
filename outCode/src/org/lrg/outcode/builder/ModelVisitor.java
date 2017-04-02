@@ -256,6 +256,8 @@ public class ModelVisitor {
 	private String getSimpleName(String name) {
 		if (name.indexOf("<") != -1)
 			return name.substring(0, name.indexOf("<"));
+		if (name.indexOf("[") != -1)
+			return name.substring(0, name.indexOf("["));
 		return name;
 	}
 
@@ -339,7 +341,7 @@ public class ModelVisitor {
 
 	private void checkIfUnresolved(IType type, Set<String> unresolvedTypes) {
 		if (type.getCompilationUnit() == null)
-			unresolvedTypes.add(type.getElementName());
+			unresolvedTypes.add(getSimpleName(type.getElementName()));
 	}
 
 	private List sortKeys(Map operations, final String currentType) {
