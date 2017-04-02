@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.refactor.filters.IsAccessor;
 import org.refactor.modelEditor.Access;
+import org.refactor.modelEditor.Call;
 import org.refactor.modelEditor.Class;
 import org.refactor.modelEditor.Field;
 import org.refactor.modelEditor.Method;
@@ -38,6 +40,12 @@ public class FDP extends AbstractMetric{
 			Field field = access.getField();
 			if (!field.getModifier().equals("constant") && !field.eContainer().equals(method.eContainer()))
 				containers.add(field.eContainer());
+		}
+		IsAccessor accessor = new IsAccessor();
+		for (Call call : method.getCalls()) {
+			Method calledMethod = call.getMethod();
+			if (accessor.compute(calledMethod))
+				containers.add(calledMethod.eContainer());
 		}
 		return containers;
 	}
