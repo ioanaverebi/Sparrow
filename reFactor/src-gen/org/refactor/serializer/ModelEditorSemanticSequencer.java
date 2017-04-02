@@ -21,6 +21,7 @@ import org.refactor.modelEditor.Import;
 import org.refactor.modelEditor.Method;
 import org.refactor.modelEditor.Model;
 import org.refactor.modelEditor.ModelEditorPackage;
+import org.refactor.modelEditor.Supertypes;
 import org.refactor.services.ModelEditorGrammarAccess;
 
 @SuppressWarnings("all")
@@ -57,6 +58,9 @@ public class ModelEditorSemanticSequencer extends AbstractDelegatingSemanticSequ
 				return; 
 			case ModelEditorPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
+				return; 
+			case ModelEditorPackage.SUPERTYPES:
+				sequence_Supertypes(context, (Supertypes) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -113,8 +117,8 @@ public class ModelEditorSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     (
 	 *         modifier=ClassModifier? 
 	 *         name=ID 
-	 *         superClass=[Class|QualifiedName]? 
-	 *         superTypes+=[Class|QualifiedName]* 
+	 *         extends=Supertypes? 
+	 *         implements=Supertypes? 
 	 *         fields+=Field* 
 	 *         methods+=Method*
 	 *     )
@@ -183,6 +187,18 @@ public class ModelEditorSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     ((imports+=Import+ classes+=Class+) | classes+=Class+)?
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Supertypes returns Supertypes
+	 *
+	 * Constraint:
+	 *     (superTypes+=[Class|QualifiedName] superTypes+=[Class|QualifiedName]*)
+	 */
+	protected void sequence_Supertypes(ISerializationContext context, Supertypes semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

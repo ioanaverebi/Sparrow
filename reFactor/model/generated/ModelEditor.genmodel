@@ -16,10 +16,13 @@
     <genClasses ecoreClass="ModelEditor.ecore#//Class">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModelEditor.ecore#//Class/modifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModelEditor.ecore#//Class/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/superClass"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/superTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/extends"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/implements"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/fields"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Class/methods"/>
+    </genClasses>
+    <genClasses ecoreClass="ModelEditor.ecore#//Supertypes">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ModelEditor.ecore#//Supertypes/superTypes"/>
     </genClasses>
     <genClasses ecoreClass="ModelEditor.ecore#//Field">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModelEditor.ecore#//Field/modifier"/>

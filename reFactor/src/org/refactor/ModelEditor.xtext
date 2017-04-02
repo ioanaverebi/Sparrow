@@ -16,11 +16,16 @@ QualifiedName:
 	(ID | STRING) ('.' ID | STRING)*;
 
 Class:
-	modifier=(ClassModifier)? 'class' name=ID ('extends' (superTypes+=[Class|QualifiedName])*)? ('implements' (superTypes+=[Class|QualifiedName])*)?
+	modifier=(ClassModifier)? 'class' name=ID ('extends' extends=Supertypes)? ('implements' implements=Supertypes)?
 	(BEGIN
 	(fields+=Field)*
 	(methods+=Method)*
 	END)?;
+	
+Supertypes:
+	(superTypes+=[Class|QualifiedName] (',' superTypes+=[Class|QualifiedName])*)?
+;
+
 
 Field:
 	modifier=(MemberModifier)? name=ID (':' type=[Class|QualifiedName])?;

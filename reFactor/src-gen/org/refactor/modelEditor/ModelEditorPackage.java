@@ -151,22 +151,22 @@ public interface ModelEditorPackage extends EPackage
   int CLASS__NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Super Class</b></em>' reference.
+   * The feature id for the '<em><b>Extends</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLASS__SUPER_CLASS = 2;
+  int CLASS__EXTENDS = 2;
 
   /**
-   * The feature id for the '<em><b>Super Types</b></em>' reference list.
+   * The feature id for the '<em><b>Implements</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLASS__SUPER_TYPES = 3;
+  int CLASS__IMPLEMENTS = 3;
 
   /**
    * The feature id for the '<em><b>Fields</b></em>' containment reference list.
@@ -196,6 +196,34 @@ public interface ModelEditorPackage extends EPackage
   int CLASS_FEATURE_COUNT = 6;
 
   /**
+   * The meta object id for the '{@link org.refactor.modelEditor.impl.SupertypesImpl <em>Supertypes</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.refactor.modelEditor.impl.SupertypesImpl
+   * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getSupertypes()
+   * @generated
+   */
+  int SUPERTYPES = 3;
+
+  /**
+   * The feature id for the '<em><b>Super Types</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUPERTYPES__SUPER_TYPES = 0;
+
+  /**
+   * The number of structural features of the '<em>Supertypes</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUPERTYPES_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link org.refactor.modelEditor.impl.FieldImpl <em>Field</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -203,7 +231,7 @@ public interface ModelEditorPackage extends EPackage
    * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getField()
    * @generated
    */
-  int FIELD = 3;
+  int FIELD = 4;
 
   /**
    * The feature id for the '<em><b>Modifier</b></em>' attribute.
@@ -249,7 +277,7 @@ public interface ModelEditorPackage extends EPackage
    * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getMethod()
    * @generated
    */
-  int METHOD = 4;
+  int METHOD = 5;
 
   /**
    * The feature id for the '<em><b>Modifier</b></em>' attribute.
@@ -340,7 +368,7 @@ public interface ModelEditorPackage extends EPackage
    * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getAccess()
    * @generated
    */
-  int ACCESS = 5;
+  int ACCESS = 6;
 
   /**
    * The feature id for the '<em><b>Accesses</b></em>' attribute.
@@ -377,7 +405,7 @@ public interface ModelEditorPackage extends EPackage
    * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getCall()
    * @generated
    */
-  int CALL = 6;
+  int CALL = 7;
 
   /**
    * The feature id for the '<em><b>Calls</b></em>' attribute.
@@ -493,26 +521,26 @@ public interface ModelEditorPackage extends EPackage
   EAttribute getClass_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.refactor.modelEditor.Class#getSuperClass <em>Super Class</em>}'.
+   * Returns the meta object for the containment reference '{@link org.refactor.modelEditor.Class#getExtends <em>Extends</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Super Class</em>'.
-   * @see org.refactor.modelEditor.Class#getSuperClass()
+   * @return the meta object for the containment reference '<em>Extends</em>'.
+   * @see org.refactor.modelEditor.Class#getExtends()
    * @see #getClass_()
    * @generated
    */
-  EReference getClass_SuperClass();
+  EReference getClass_Extends();
 
   /**
-   * Returns the meta object for the reference list '{@link org.refactor.modelEditor.Class#getSuperTypes <em>Super Types</em>}'.
+   * Returns the meta object for the containment reference '{@link org.refactor.modelEditor.Class#getImplements <em>Implements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Super Types</em>'.
-   * @see org.refactor.modelEditor.Class#getSuperTypes()
+   * @return the meta object for the containment reference '<em>Implements</em>'.
+   * @see org.refactor.modelEditor.Class#getImplements()
    * @see #getClass_()
    * @generated
    */
-  EReference getClass_SuperTypes();
+  EReference getClass_Implements();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.refactor.modelEditor.Class#getFields <em>Fields</em>}'.
@@ -535,6 +563,27 @@ public interface ModelEditorPackage extends EPackage
    * @generated
    */
   EReference getClass_Methods();
+
+  /**
+   * Returns the meta object for class '{@link org.refactor.modelEditor.Supertypes <em>Supertypes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Supertypes</em>'.
+   * @see org.refactor.modelEditor.Supertypes
+   * @generated
+   */
+  EClass getSupertypes();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.refactor.modelEditor.Supertypes#getSuperTypes <em>Super Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Super Types</em>'.
+   * @see org.refactor.modelEditor.Supertypes#getSuperTypes()
+   * @see #getSupertypes()
+   * @generated
+   */
+  EReference getSupertypes_SuperTypes();
 
   /**
    * Returns the meta object for class '{@link org.refactor.modelEditor.Field <em>Field</em>}'.
@@ -835,20 +884,20 @@ public interface ModelEditorPackage extends EPackage
     EAttribute CLASS__NAME = eINSTANCE.getClass_Name();
 
     /**
-     * The meta object literal for the '<em><b>Super Class</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Extends</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CLASS__SUPER_CLASS = eINSTANCE.getClass_SuperClass();
+    EReference CLASS__EXTENDS = eINSTANCE.getClass_Extends();
 
     /**
-     * The meta object literal for the '<em><b>Super Types</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Implements</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CLASS__SUPER_TYPES = eINSTANCE.getClass_SuperTypes();
+    EReference CLASS__IMPLEMENTS = eINSTANCE.getClass_Implements();
 
     /**
      * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
@@ -865,6 +914,24 @@ public interface ModelEditorPackage extends EPackage
      * @generated
      */
     EReference CLASS__METHODS = eINSTANCE.getClass_Methods();
+
+    /**
+     * The meta object literal for the '{@link org.refactor.modelEditor.impl.SupertypesImpl <em>Supertypes</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.refactor.modelEditor.impl.SupertypesImpl
+     * @see org.refactor.modelEditor.impl.ModelEditorPackageImpl#getSupertypes()
+     * @generated
+     */
+    EClass SUPERTYPES = eINSTANCE.getSupertypes();
+
+    /**
+     * The meta object literal for the '<em><b>Super Types</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUPERTYPES__SUPER_TYPES = eINSTANCE.getSupertypes_SuperTypes();
 
     /**
      * The meta object literal for the '{@link org.refactor.modelEditor.impl.FieldImpl <em>Field</em>}' class.

@@ -15,6 +15,7 @@ import org.refactor.modelEditor.Import;
 import org.refactor.modelEditor.Method;
 import org.refactor.modelEditor.Model;
 import org.refactor.modelEditor.ModelEditorPackage;
+import org.refactor.modelEditor.Supertypes;
 
 /**
  * <!-- begin-user-doc -->
@@ -100,6 +101,13 @@ public class ModelEditorSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ModelEditorPackage.SUPERTYPES:
+      {
+        Supertypes supertypes = (Supertypes)theEObject;
+        T result = caseSupertypes(supertypes);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ModelEditorPackage.FIELD:
       {
         Field field = (Field)theEObject;
@@ -176,6 +184,22 @@ public class ModelEditorSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseClass(org.refactor.modelEditor.Class object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Supertypes</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Supertypes</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSupertypes(Supertypes object)
   {
     return null;
   }

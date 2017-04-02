@@ -146,14 +146,12 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cExtendsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cSuperClassAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cSuperClassClassCrossReference_3_1_0 = (CrossReference)cSuperClassAssignment_3_1.eContents().get(0);
-		private final RuleCall cSuperClassClassQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cSuperClassClassCrossReference_3_1_0.eContents().get(1);
+		private final Assignment cExtendsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cExtendsSupertypesParserRuleCall_3_1_0 = (RuleCall)cExtendsAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cImplementsKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cSuperTypesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final CrossReference cSuperTypesClassCrossReference_4_1_0 = (CrossReference)cSuperTypesAssignment_4_1.eContents().get(0);
-		private final RuleCall cSuperTypesClassQualifiedNameParserRuleCall_4_1_0_1 = (RuleCall)cSuperTypesClassCrossReference_4_1_0.eContents().get(1);
+		private final Assignment cImplementsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cImplementsSupertypesParserRuleCall_4_1_0 = (RuleCall)cImplementsAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final RuleCall cBEGINTerminalRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
 		private final Assignment cFieldsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -163,15 +161,14 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cENDTerminalRuleCall_5_3 = (RuleCall)cGroup_5.eContents().get(3);
 		
 		//Class:
-		//	modifier=ClassModifier? 'class' name=ID ('extends' superClass=[Class|QualifiedName])? ('implements'
-		//	superTypes+=[Class|QualifiedName]*)? (BEGIN
+		//	modifier=ClassModifier? 'class' name=ID ('extends' extends=Supertypes)? ('implements' implements=Supertypes)? (BEGIN
 		//	fields+=Field*
 		//	methods+=Method*
 		//	END)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//modifier=ClassModifier? 'class' name=ID ('extends' superClass=[Class|QualifiedName])? ('implements'
-		//superTypes+=[Class|QualifiedName]*)? (BEGIN fields+=Field* methods+=Method* END)?
+		//modifier=ClassModifier? 'class' name=ID ('extends' extends=Supertypes)? ('implements' implements=Supertypes)? (BEGIN
+		//fields+=Field* methods+=Method* END)?
 		public Group getGroup() { return cGroup; }
 		
 		//modifier=ClassModifier?
@@ -189,35 +186,29 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
-		//('extends' superClass=[Class|QualifiedName])?
+		//('extends' extends=Supertypes)?
 		public Group getGroup_3() { return cGroup_3; }
 		
 		//'extends'
 		public Keyword getExtendsKeyword_3_0() { return cExtendsKeyword_3_0; }
 		
-		//superClass=[Class|QualifiedName]
-		public Assignment getSuperClassAssignment_3_1() { return cSuperClassAssignment_3_1; }
+		//extends=Supertypes
+		public Assignment getExtendsAssignment_3_1() { return cExtendsAssignment_3_1; }
 		
-		//[Class|QualifiedName]
-		public CrossReference getSuperClassClassCrossReference_3_1_0() { return cSuperClassClassCrossReference_3_1_0; }
+		//Supertypes
+		public RuleCall getExtendsSupertypesParserRuleCall_3_1_0() { return cExtendsSupertypesParserRuleCall_3_1_0; }
 		
-		//QualifiedName
-		public RuleCall getSuperClassClassQualifiedNameParserRuleCall_3_1_0_1() { return cSuperClassClassQualifiedNameParserRuleCall_3_1_0_1; }
-		
-		//('implements' superTypes+=[Class|QualifiedName]*)?
+		//('implements' implements=Supertypes)?
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'implements'
 		public Keyword getImplementsKeyword_4_0() { return cImplementsKeyword_4_0; }
 		
-		//superTypes+=[Class|QualifiedName]*
-		public Assignment getSuperTypesAssignment_4_1() { return cSuperTypesAssignment_4_1; }
+		//implements=Supertypes
+		public Assignment getImplementsAssignment_4_1() { return cImplementsAssignment_4_1; }
 		
-		//[Class|QualifiedName]
-		public CrossReference getSuperTypesClassCrossReference_4_1_0() { return cSuperTypesClassCrossReference_4_1_0; }
-		
-		//QualifiedName
-		public RuleCall getSuperTypesClassQualifiedNameParserRuleCall_4_1_0_1() { return cSuperTypesClassQualifiedNameParserRuleCall_4_1_0_1; }
+		//Supertypes
+		public RuleCall getImplementsSupertypesParserRuleCall_4_1_0() { return cImplementsSupertypesParserRuleCall_4_1_0; }
 		
 		//(BEGIN fields+=Field* methods+=Method* END)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -239,6 +230,49 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//END
 		public RuleCall getENDTerminalRuleCall_5_3() { return cENDTerminalRuleCall_5_3; }
+	}
+	public class SupertypesElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.refactor.ModelEditor.Supertypes");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cSuperTypesAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cSuperTypesClassCrossReference_0_0 = (CrossReference)cSuperTypesAssignment_0.eContents().get(0);
+		private final RuleCall cSuperTypesClassQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cSuperTypesClassCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSuperTypesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cSuperTypesClassCrossReference_1_1_0 = (CrossReference)cSuperTypesAssignment_1_1.eContents().get(0);
+		private final RuleCall cSuperTypesClassQualifiedNameParserRuleCall_1_1_0_1 = (RuleCall)cSuperTypesClassCrossReference_1_1_0.eContents().get(1);
+		
+		//Supertypes:
+		//	(superTypes+=[Class|QualifiedName] (',' superTypes+=[Class|QualifiedName])*)?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//(superTypes+=[Class|QualifiedName] (',' superTypes+=[Class|QualifiedName])*)?
+		public Group getGroup() { return cGroup; }
+		
+		//superTypes+=[Class|QualifiedName]
+		public Assignment getSuperTypesAssignment_0() { return cSuperTypesAssignment_0; }
+		
+		//[Class|QualifiedName]
+		public CrossReference getSuperTypesClassCrossReference_0_0() { return cSuperTypesClassCrossReference_0_0; }
+		
+		//QualifiedName
+		public RuleCall getSuperTypesClassQualifiedNameParserRuleCall_0_0_1() { return cSuperTypesClassQualifiedNameParserRuleCall_0_0_1; }
+		
+		//(',' superTypes+=[Class|QualifiedName])*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//','
+		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
+		
+		//superTypes+=[Class|QualifiedName]
+		public Assignment getSuperTypesAssignment_1_1() { return cSuperTypesAssignment_1_1; }
+		
+		//[Class|QualifiedName]
+		public CrossReference getSuperTypesClassCrossReference_1_1_0() { return cSuperTypesClassCrossReference_1_1_0; }
+		
+		//QualifiedName
+		public RuleCall getSuperTypesClassQualifiedNameParserRuleCall_1_1_0_1() { return cSuperTypesClassQualifiedNameParserRuleCall_1_1_0_1; }
 	}
 	public class FieldElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.refactor.ModelEditor.Field");
@@ -611,6 +645,7 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 	private final QualifiedNameWithWildcardElements pQualifiedNameWithWildcard;
 	private final QualifiedNameElements pQualifiedName;
 	private final ClassElements pClass;
+	private final SupertypesElements pSupertypes;
 	private final FieldElements pField;
 	private final MethodElements pMethod;
 	private final MemberModifierElements pMemberModifier;
@@ -634,6 +669,7 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 		this.pQualifiedNameWithWildcard = new QualifiedNameWithWildcardElements();
 		this.pQualifiedName = new QualifiedNameElements();
 		this.pClass = new ClassElements();
+		this.pSupertypes = new SupertypesElements();
 		this.pField = new FieldElements();
 		this.pMethod = new MethodElements();
 		this.pMemberModifier = new MemberModifierElements();
@@ -713,8 +749,7 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Class:
-	//	modifier=ClassModifier? 'class' name=ID ('extends' superClass=[Class|QualifiedName])? ('implements'
-	//	superTypes+=[Class|QualifiedName]*)? (BEGIN
+	//	modifier=ClassModifier? 'class' name=ID ('extends' extends=Supertypes)? ('implements' implements=Supertypes)? (BEGIN
 	//	fields+=Field*
 	//	methods+=Method*
 	//	END)?;
@@ -724,6 +759,16 @@ public class ModelEditorGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getClassRule() {
 		return getClassAccess().getRule();
+	}
+	
+	//Supertypes:
+	//	(superTypes+=[Class|QualifiedName] (',' superTypes+=[Class|QualifiedName])*)?;
+	public SupertypesElements getSupertypesAccess() {
+		return pSupertypes;
+	}
+	
+	public ParserRule getSupertypesRule() {
+		return getSupertypesAccess().getRule();
 	}
 	
 	//Field:

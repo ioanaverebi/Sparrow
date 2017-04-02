@@ -17,6 +17,7 @@ import org.refactor.modelEditor.Import;
 import org.refactor.modelEditor.Method;
 import org.refactor.modelEditor.Model;
 import org.refactor.modelEditor.ModelEditorPackage;
+import org.refactor.modelEditor.Supertypes;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,6 +96,11 @@ public class ModelEditorAdapterFactory extends AdapterFactoryImpl
       public Adapter caseClass(org.refactor.modelEditor.Class object)
       {
         return createClassAdapter();
+      }
+      @Override
+      public Adapter caseSupertypes(Supertypes object)
+      {
+        return createSupertypesAdapter();
       }
       @Override
       public Adapter caseField(Field object)
@@ -179,6 +185,21 @@ public class ModelEditorAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createClassAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.refactor.modelEditor.Supertypes <em>Supertypes</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.refactor.modelEditor.Supertypes
+   * @generated
+   */
+  public Adapter createSupertypesAdapter()
   {
     return null;
   }

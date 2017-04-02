@@ -57,6 +57,8 @@ public class ModelEditorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClassAccess().getGroup_3(), "rule__Class__Group_3__0");
 					put(grammarAccess.getClassAccess().getGroup_4(), "rule__Class__Group_4__0");
 					put(grammarAccess.getClassAccess().getGroup_5(), "rule__Class__Group_5__0");
+					put(grammarAccess.getSupertypesAccess().getGroup(), "rule__Supertypes__Group__0");
+					put(grammarAccess.getSupertypesAccess().getGroup_1(), "rule__Supertypes__Group_1__0");
 					put(grammarAccess.getFieldAccess().getGroup(), "rule__Field__Group__0");
 					put(grammarAccess.getFieldAccess().getGroup_2(), "rule__Field__Group_2__0");
 					put(grammarAccess.getMethodAccess().getGroup(), "rule__Method__Group__0");
@@ -73,10 +75,12 @@ public class ModelEditorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getClassAccess().getModifierAssignment_0(), "rule__Class__ModifierAssignment_0");
 					put(grammarAccess.getClassAccess().getNameAssignment_2(), "rule__Class__NameAssignment_2");
-					put(grammarAccess.getClassAccess().getSuperClassAssignment_3_1(), "rule__Class__SuperClassAssignment_3_1");
-					put(grammarAccess.getClassAccess().getSuperTypesAssignment_4_1(), "rule__Class__SuperTypesAssignment_4_1");
+					put(grammarAccess.getClassAccess().getExtendsAssignment_3_1(), "rule__Class__ExtendsAssignment_3_1");
+					put(grammarAccess.getClassAccess().getImplementsAssignment_4_1(), "rule__Class__ImplementsAssignment_4_1");
 					put(grammarAccess.getClassAccess().getFieldsAssignment_5_1(), "rule__Class__FieldsAssignment_5_1");
 					put(grammarAccess.getClassAccess().getMethodsAssignment_5_2(), "rule__Class__MethodsAssignment_5_2");
+					put(grammarAccess.getSupertypesAccess().getSuperTypesAssignment_0(), "rule__Supertypes__SuperTypesAssignment_0");
+					put(grammarAccess.getSupertypesAccess().getSuperTypesAssignment_1_1(), "rule__Supertypes__SuperTypesAssignment_1_1");
 					put(grammarAccess.getFieldAccess().getModifierAssignment_0(), "rule__Field__ModifierAssignment_0");
 					put(grammarAccess.getFieldAccess().getNameAssignment_1(), "rule__Field__NameAssignment_1");
 					put(grammarAccess.getFieldAccess().getTypeAssignment_2_1(), "rule__Field__TypeAssignment_2_1");

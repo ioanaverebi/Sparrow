@@ -18,6 +18,7 @@ import org.refactor.modelEditor.Method;
 import org.refactor.modelEditor.Model;
 import org.refactor.modelEditor.ModelEditorFactory;
 import org.refactor.modelEditor.ModelEditorPackage;
+import org.refactor.modelEditor.Supertypes;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,6 +48,13 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
    * @generated
    */
   private EClass classEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass supertypesEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -224,7 +232,7 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_SuperClass()
+  public EReference getClass_Extends()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(2);
   }
@@ -234,7 +242,7 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_SuperTypes()
+  public EReference getClass_Implements()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(3);
   }
@@ -257,6 +265,26 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
   public EReference getClass_Methods()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSupertypes()
+  {
+    return supertypesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSupertypes_SuperTypes()
+  {
+    return (EReference)supertypesEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -489,10 +517,13 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
     classEClass = createEClass(CLASS);
     createEAttribute(classEClass, CLASS__MODIFIER);
     createEAttribute(classEClass, CLASS__NAME);
-    createEReference(classEClass, CLASS__SUPER_CLASS);
-    createEReference(classEClass, CLASS__SUPER_TYPES);
+    createEReference(classEClass, CLASS__EXTENDS);
+    createEReference(classEClass, CLASS__IMPLEMENTS);
     createEReference(classEClass, CLASS__FIELDS);
     createEReference(classEClass, CLASS__METHODS);
+
+    supertypesEClass = createEClass(SUPERTYPES);
+    createEReference(supertypesEClass, SUPERTYPES__SUPER_TYPES);
 
     fieldEClass = createEClass(FIELD);
     createEAttribute(fieldEClass, FIELD__MODIFIER);
@@ -559,10 +590,13 @@ public class ModelEditorPackageImpl extends EPackageImpl implements ModelEditorP
     initEClass(classEClass, org.refactor.modelEditor.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getClass_Modifier(), ecorePackage.getEString(), "modifier", null, 0, 1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClass_Name(), ecorePackage.getEString(), "name", null, 0, 1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClass_SuperClass(), this.getClass_(), null, "superClass", null, 0, 1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClass_SuperTypes(), this.getClass_(), null, "superTypes", null, 0, -1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Extends(), this.getSupertypes(), null, "extends", null, 0, 1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Implements(), this.getSupertypes(), null, "implements", null, 0, 1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClass_Fields(), this.getField(), null, "fields", null, 0, -1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClass_Methods(), this.getMethod(), null, "methods", null, 0, -1, org.refactor.modelEditor.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(supertypesEClass, Supertypes.class, "Supertypes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSupertypes_SuperTypes(), this.getClass_(), null, "superTypes", null, 0, -1, Supertypes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getField_Modifier(), ecorePackage.getEString(), "modifier", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -7,8 +7,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringJoiner;
 
 import org.eclipse.core.resources.IFile;
@@ -38,6 +40,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.Signature;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -71,15 +74,15 @@ public class ModelVisitor {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				if (result == 0) {
-					long startTime = new Date().getTime();
+					long startTime = System.currentTimeMillis();
 					IProject xtextProject = initialize(value);
 					try {
 						visitIPackageFragments(monitor, project, xtextProject);
 					} catch (JavaModelException e) {
 						e.printStackTrace();
 					}
-					long endTime = new Date().getTime();
-					System.out.println("Model building took " + new Date(endTime - startTime).toString());
+					long difference = System.currentTimeMillis() - startTime;
+					System.out.println("Model building took " + difference/1000 +" seconds");
 				}
 				return Status.OK_STATUS;
 			}
@@ -96,6 +99,7 @@ public class ModelVisitor {
 			}
 		}
 		SubMonitor subMonitor = SubMonitor.convert(monitor, ticks);
+		Set<String> unresolvedTypes = new HashSet<String>();
 		for (IPackageFragment aPackage : javaProject.getPackageFragments()) {
 			IJavaElement parent = aPackage.getParent();
 			if (parent instanceof IPackageFragmentRoot) {
@@ -108,18 +112,25 @@ public class ModelVisitor {
 						if (!aPackage.isDefaultPackage()) {
 							packageName = aPackage.getElementName();
 							IFolder packageFolder = createFolder(sourceFolder.getFolder(packageName), xtextProject);
-							visitICompilationUnits(subMonitor, aPackage, packageFolder);
+							visitICompilationUnits(subMonitor, aPackage, packageFolder, unresolvedTypes);
 						} else
-							visitICompilationUnits(subMonitor, aPackage, sourceFolder);
+							visitICompilationUnits(subMonitor, aPackage, sourceFolder, unresolvedTypes);
 					}
 				}
 			}
 		}
+		String unresolvedContent = "";
+		for (String unresolved : unresolvedTypes) {
+			unresolvedContent += "class " + unresolved + System.lineSeparator();
+		}
+		IFolder unresolvedFolder = createFolder(xtextProject.getFolder(".unresolved"), xtextProject);
+		createFile(".unresolved.rfm", unresolvedContent, unresolvedFolder);
+		
 		subMonitor.done();
 		monitor.done();
 	}
 
-	private void visitICompilationUnits(SubMonitor subMonitor, IPackageFragment packageFragment, IFolder newFolder) throws JavaModelException {
+	private void visitICompilationUnits(SubMonitor subMonitor, IPackageFragment packageFragment, IFolder folder, Set<String> unresolvedTypes) throws JavaModelException {
 		for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
 			try {
 				theParser.setSource(compilationUnit);
@@ -128,8 +139,8 @@ public class ModelVisitor {
 				OutCodeVisitor visitor = new OutCodeVisitor();
 				entireAST.accept(visitor);
 				String fileName = compilationUnit.getElementName().replace(".java", ".rfm");
-				String mappedFile = visitITypes(compilationUnit, visitor);
-				createFile(fileName, mappedFile, newFolder);
+				String mappedFile = visitITypes(compilationUnit, visitor, unresolvedTypes);
+				createFile(fileName, mappedFile, folder);
 				subMonitor.worked(1);
 			} catch (JavaModelException e) {
 				e.printStackTrace();
@@ -137,35 +148,35 @@ public class ModelVisitor {
 		}
 	}
 
-	private String visitITypes(ICompilationUnit unit, OutCodeVisitor visitor) throws JavaModelException {
+	private String visitITypes(ICompilationUnit unit, OutCodeVisitor visitor, Set<String> unresolvedTypes) throws JavaModelException {
 		IType[] allTypes = unit.getAllTypes();
 		String content = "";
 		for (int i = 0; i < allTypes.length; i++) {
 			IType type = allTypes[i];
-			content += serializeType(unit, type, i);
+			content += serializeType(unit, type, i, unresolvedTypes);
 			int indentation = 1;
-			content += visitIFields(unit, type, visitor, indentation);
-			content += visitIMethods(unit, type, visitor, indentation);
+			content += visitIFields(unit, type, visitor, indentation, unresolvedTypes);
+			content += visitIMethods(unit, type, visitor, indentation, unresolvedTypes);
 			indentation -= 1;
 		}
 		return content;
 	}
 
-	private String visitIMethods(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
+	private String visitIMethods(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation, Set<String> unresolvedTypes) throws JavaModelException {
 		IMethod[] methods = type.getMethods();
 		String content = "";
 		for (IMethod method : methods) {
 			content += System.lineSeparator();
-			content += serializeMethod(unit, indentation, method, visitor);
+			content += serializeMethod(unit, indentation, method, visitor, unresolvedTypes);
 		}
 		return content;
 	}
 
-	private String visitIFields(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation) throws JavaModelException {
+	private String visitIFields(ICompilationUnit unit, IType type, OutCodeVisitor visitor, int indentation, Set<String> unresolvedTypes) throws JavaModelException {
 		IField[] fields = type.getFields();
 		String content = "";
 		for (IField field : fields) {
-			content += serializeField(unit, indentation, field, visitor);
+			content += serializeField(unit, indentation, field, visitor, unresolvedTypes);
 		}
 		return content;
 	}
@@ -212,7 +223,7 @@ public class ModelVisitor {
 		}
 	}
 
-	private String serializeType(ICompilationUnit unit, IType type, int index) {
+	private String serializeType(ICompilationUnit unit, IType type, int index, Set<String> unresolvedTypes) {
 		String comments = getComments(unit, type);
 		String content = "";
 		if (comments != null)
@@ -221,20 +232,33 @@ public class ModelVisitor {
 			content += addLine(0, "");
 		String declaration = type.getElementName();
 		try {
-			if (type.getSuperclassName() != null)
-				declaration += " extends " + type.getSuperclassName();
-			if (type.getSuperInterfaceNames().length > 0) {
+			if (type.getSuperclassName() != null){
+				String typeSignature = getSimpleName(type.getSuperclassName());
+				declaration += " extends " + typeSignature;
+			}
+			String[] superInterfaces = type.getSuperInterfaceNames();
+			if (superInterfaces.length > 0) {
 				if (type.isInterface())
 					declaration += " extends ";
 				else
 					declaration += " implements ";
-				declaration += String.join(",", type.getSuperInterfaceNames());
+				String[] names = new String[superInterfaces.length];
+				for (int i = 0; i < superInterfaces.length; i++) {
+					names[i] = getSimpleName(superInterfaces[i]);
+				}
+				declaration += String.join(", ", names);
 			}
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
 		content += addLine(0, "class " + declaration);
 		return content;
+	}
+
+	private String getSimpleName(String name) {
+		if (name.indexOf("<") != -1)
+			return name.substring(0, name.indexOf("<"));
+		return name;
 	}
 
 	private String getComments(ICompilationUnit unit, IMember member) {
@@ -248,7 +272,7 @@ public class ModelVisitor {
 		return null;
 	}
 
-	private String serializeMethod(ICompilationUnit unit, int indentation, IMethod method, OutCodeVisitor visitor) {
+	private String serializeMethod(ICompilationUnit unit, int indentation, IMethod method, OutCodeVisitor visitor, Set<String> unresolvedTypes) {
 		String handleIdentifier = method.getHandleIdentifier();
 		MethodDetails details = (MethodDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)
@@ -256,11 +280,15 @@ public class ModelVisitor {
 		String methodIdentifier = getModifier(details.getModifiers()) + method.getElementName() + "(";
 		StringJoiner joiner = new StringJoiner(", ");
 		for (IType parameter : details.getParameters()) {
+			checkIfUnresolved(parameter, unresolvedTypes);
 			joiner.add(parameter.getElementName());
 		}
 		methodIdentifier += joiner.toString() + ")";
-		if (details.getReturnType() != null)
-			methodIdentifier += ": " + details.getReturnType().getElementName();
+		IType returnType = details.getReturnType();
+		if (returnType != null){
+			checkIfUnresolved(returnType, unresolvedTypes);
+			methodIdentifier += ": " + returnType.getElementName();
+		}
 		String comments = getComments(unit, method);
 		String content = "";
 		if (comments != null)
@@ -290,6 +318,7 @@ public class ModelVisitor {
 				access += aField.getElementName();
 			else
 				access += aField.getDeclaringType().getElementName() + "." + aField.getElementName();
+			checkIfUnresolved(aField.getDeclaringType(), unresolvedTypes);
 			content += addLine(indentation, access);
 		}
 		for (IMethod aMethod : (List<IMethod>) sortKeys(calls, method.getDeclaringType().getElementName())) {
@@ -303,10 +332,16 @@ public class ModelVisitor {
 				call += aMethod.getElementName() + "()";
 			else
 				call += aMethod.getDeclaringType().getElementName() + "." + aMethod.getElementName() + "()";
+			checkIfUnresolved(aMethod.getDeclaringType(), unresolvedTypes);
 			content += addLine(indentation, call);
 		}
 		indentation -= 1;
 		return content;
+	}
+
+	private void checkIfUnresolved(IType type, Set<String> unresolvedTypes) {
+		if (type.getCompilationUnit() == null)
+			unresolvedTypes.add(type.getElementName());
 	}
 
 	private List sortKeys(Map operations, final String currentType) {
@@ -341,7 +376,7 @@ public class ModelVisitor {
 		return "";
 	}
 
-	private String serializeField(ICompilationUnit unit, int indentation, IField field, OutCodeVisitor visitor) {
+	private String serializeField(ICompilationUnit unit, int indentation, IField field, OutCodeVisitor visitor, Set<String> unresolvedTypes) {
 		String handleIdentifier = field.getHandleIdentifier();
 		FieldDetails details = (FieldDetails) visitor.getDetails(handleIdentifier);
 		if (details == null)

@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.refactor.modelEditor.Class#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getName <em>Name</em>}</li>
- *   <li>{@link org.refactor.modelEditor.Class#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link org.refactor.modelEditor.Class#getSuperTypes <em>Super Types</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.Class#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.refactor.modelEditor.Class#getImplements <em>Implements</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getFields <em>Fields</em>}</li>
  *   <li>{@link org.refactor.modelEditor.Class#getMethods <em>Methods</em>}</li>
  * </ul>
@@ -83,46 +83,56 @@ public interface Class extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Super Class</b></em>' reference.
+   * Returns the value of the '<em><b>Extends</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Super Class</em>' reference isn't clear,
+   * If the meaning of the '<em>Extends</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Super Class</em>' reference.
-   * @see #setSuperClass(Class)
-   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_SuperClass()
-   * @model
+   * @return the value of the '<em>Extends</em>' containment reference.
+   * @see #setExtends(Supertypes)
+   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_Extends()
+   * @model containment="true"
    * @generated
    */
-  Class getSuperClass();
+  Supertypes getExtends();
 
   /**
-   * Sets the value of the '{@link org.refactor.modelEditor.Class#getSuperClass <em>Super Class</em>}' reference.
+   * Sets the value of the '{@link org.refactor.modelEditor.Class#getExtends <em>Extends</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Super Class</em>' reference.
-   * @see #getSuperClass()
+   * @param value the new value of the '<em>Extends</em>' containment reference.
+   * @see #getExtends()
    * @generated
    */
-  void setSuperClass(Class value);
+  void setExtends(Supertypes value);
 
   /**
-   * Returns the value of the '<em><b>Super Types</b></em>' reference list.
-   * The list contents are of type {@link org.refactor.modelEditor.Class}.
+   * Returns the value of the '<em><b>Implements</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Super Types</em>' reference list isn't clear,
+   * If the meaning of the '<em>Implements</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Super Types</em>' reference list.
-   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_SuperTypes()
-   * @model
+   * @return the value of the '<em>Implements</em>' containment reference.
+   * @see #setImplements(Supertypes)
+   * @see org.refactor.modelEditor.ModelEditorPackage#getClass_Implements()
+   * @model containment="true"
    * @generated
    */
-  EList<Class> getSuperTypes();
+  Supertypes getImplements();
+
+  /**
+   * Sets the value of the '{@link org.refactor.modelEditor.Class#getImplements <em>Implements</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Implements</em>' containment reference.
+   * @see #getImplements()
+   * @generated
+   */
+  void setImplements(Supertypes value);
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.

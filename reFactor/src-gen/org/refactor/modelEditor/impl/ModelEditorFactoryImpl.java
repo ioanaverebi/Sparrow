@@ -19,6 +19,7 @@ import org.refactor.modelEditor.Method;
 import org.refactor.modelEditor.Model;
 import org.refactor.modelEditor.ModelEditorFactory;
 import org.refactor.modelEditor.ModelEditorPackage;
+import org.refactor.modelEditor.Supertypes;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +76,7 @@ public class ModelEditorFactoryImpl extends EFactoryImpl implements ModelEditorF
       case ModelEditorPackage.MODEL: return createModel();
       case ModelEditorPackage.IMPORT: return createImport();
       case ModelEditorPackage.CLASS: return createClass();
+      case ModelEditorPackage.SUPERTYPES: return createSupertypes();
       case ModelEditorPackage.FIELD: return createField();
       case ModelEditorPackage.METHOD: return createMethod();
       case ModelEditorPackage.ACCESS: return createAccess();
@@ -115,6 +117,17 @@ public class ModelEditorFactoryImpl extends EFactoryImpl implements ModelEditorF
   {
     ClassImpl class_ = new ClassImpl();
     return class_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Supertypes createSupertypes()
+  {
+    SupertypesImpl supertypes = new SupertypesImpl();
+    return supertypes;
   }
 
   /**

@@ -51,6 +51,15 @@ public interface ModelEditorFactory extends EFactory
   Class createClass();
 
   /**
+   * Returns a new object of class '<em>Supertypes</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Supertypes</em>'.
+   * @generated
+   */
+  Supertypes createSupertypes();
+
+  /**
    * Returns a new object of class '<em>Field</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

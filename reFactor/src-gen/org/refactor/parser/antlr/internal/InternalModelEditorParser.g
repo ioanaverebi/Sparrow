@@ -313,15 +313,18 @@ ruleClass returns [EObject current=null]
 			(
 				(
 					{
+						newCompositeNode(grammarAccess.getClassAccess().getExtendsSupertypesParserRuleCall_3_1_0());
+					}
+					lv_extends_4_0=ruleSupertypes
+					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getClassRule());
+							$current = createModelElementForParent(grammarAccess.getClassRule());
 						}
-					}
-					{
-						newCompositeNode(grammarAccess.getClassAccess().getSuperClassClassCrossReference_3_1_0());
-					}
-					ruleQualifiedName
-					{
+						set(
+							$current,
+							"extends",
+							lv_extends_4_0,
+							"org.refactor.ModelEditor.Supertypes");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -335,19 +338,22 @@ ruleClass returns [EObject current=null]
 			(
 				(
 					{
+						newCompositeNode(grammarAccess.getClassAccess().getImplementsSupertypesParserRuleCall_4_1_0());
+					}
+					lv_implements_6_0=ruleSupertypes
+					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getClassRule());
+							$current = createModelElementForParent(grammarAccess.getClassRule());
 						}
-					}
-					{
-						newCompositeNode(grammarAccess.getClassAccess().getSuperTypesClassCrossReference_4_1_0());
-					}
-					ruleQualifiedName
-					{
+						set(
+							$current,
+							"implements",
+							lv_implements_6_0,
+							"org.refactor.ModelEditor.Supertypes");
 						afterParserOrEnumRuleCall();
 					}
 				)
-			)*
+			)
 		)?
 		(
 			this_BEGIN_7=RULE_BEGIN
@@ -398,6 +404,63 @@ ruleClass returns [EObject current=null]
 			}
 		)?
 	)
+;
+
+// Entry rule entryRuleSupertypes
+entryRuleSupertypes returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSupertypesRule()); }
+	iv_ruleSupertypes=ruleSupertypes
+	{ $current=$iv_ruleSupertypes.current; }
+	EOF;
+
+// Rule Supertypes
+ruleSupertypes returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getSupertypesRule());
+					}
+				}
+				{
+					newCompositeNode(grammarAccess.getSupertypesAccess().getSuperTypesClassCrossReference_0_0());
+				}
+				ruleQualifiedName
+				{
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			otherlv_1=Comma
+			{
+				newLeafNode(otherlv_1, grammarAccess.getSupertypesAccess().getCommaKeyword_1_0());
+			}
+			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getSupertypesRule());
+						}
+					}
+					{
+						newCompositeNode(grammarAccess.getSupertypesAccess().getSuperTypesClassCrossReference_1_1_0());
+					}
+					ruleQualifiedName
+					{
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)?
 ;
 
 // Entry rule entryRuleField
