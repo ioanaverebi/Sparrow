@@ -35,7 +35,7 @@ public class GodClassChecker implements IRuleChecker {
 		for (Method method : methods) {
 			wmc += method.getCyclo();
 		}
-		if (atfd <= Constants.FEW || wmc < Constants.VERY_HIGH || tcc > Constants.ONE_THIRD)
+		if (atfd <= Constants.MANY || wmc < Constants.VERY_HIGH || tcc > Constants.ONE_THIRD)
 			return false;
 
 		return true;
@@ -44,7 +44,7 @@ public class GodClassChecker implements IRuleChecker {
 	@Override
 	public int getSeverity() {
 		double atfd = new ATFD().compute(classElement);
-		return SeverityScore.computeScore(atfd, Constants.FEW, 5*Constants.MANY);
+		return SeverityScore.computeScore(atfd, Constants.MANY, 5*Constants.MANY);
 	}
 
 }
