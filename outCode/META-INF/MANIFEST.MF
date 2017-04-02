@@ -26,7 +26,7 @@ Bundle-ClassPath: .,
  lib/scala-library-2.10.4.jar,
  lib/server-api-2.1.2.jar,
  lib/mongo-java-driver-2.13.0-rc0.jar
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.google.inject,
  org.eclipse.xtext.resource,
  org.eclipse.xtext.ui.resource
