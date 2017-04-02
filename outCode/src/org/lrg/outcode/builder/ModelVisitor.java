@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,6 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.Signature;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -82,7 +80,7 @@ public class ModelVisitor {
 						e.printStackTrace();
 					}
 					long difference = System.currentTimeMillis() - startTime;
-					System.out.println("Model building took " + difference/1000 +" seconds");
+					System.out.println("Model building took " + difference / 1000 + " seconds");
 				}
 				return Status.OK_STATUS;
 			}
@@ -125,7 +123,7 @@ public class ModelVisitor {
 		}
 		IFolder unresolvedFolder = createFolder(xtextProject.getFolder(".unresolved"), xtextProject);
 		createFile(".unresolved.rfm", unresolvedContent, unresolvedFolder);
-		
+
 		subMonitor.done();
 		monitor.done();
 	}
@@ -232,7 +230,7 @@ public class ModelVisitor {
 			content += addLine(0, "");
 		String declaration = type.getElementName();
 		try {
-			if (type.getSuperclassName() != null){
+			if (type.getSuperclassName() != null) {
 				String typeSignature = getSimpleName(type.getSuperclassName());
 				declaration += " extends " + typeSignature;
 			}
@@ -285,7 +283,7 @@ public class ModelVisitor {
 		}
 		methodIdentifier += joiner.toString() + ")";
 		IType returnType = details.getReturnType();
-		if (returnType != null){
+		if (returnType != null) {
 			checkIfUnresolved(returnType, unresolvedTypes);
 			methodIdentifier += ": " + returnType.getElementName();
 		}

@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.ITypeParameter;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -17,6 +16,7 @@ import org.eclipse.jdt.core.dom.ConditionalExpression;
 import org.eclipse.jdt.core.dom.ConstructorInvocation;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
+import org.eclipse.jdt.core.dom.EnumConstantDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ForStatement;
 import org.eclipse.jdt.core.dom.IBinding;
@@ -59,6 +59,15 @@ public class OutCodeVisitor extends ASTVisitor {
 	}
 
 	@Override
+	public boolean visit(EnumConstantDeclaration node) {
+		IJavaElement fieldDeclaration = node.resolveVariable().getJavaElement();
+		FieldDetails fieldDetails = new FieldDetails();
+		fieldDetails.setModifiers(node.getModifiers());
+		allDetails.put(fieldDeclaration.getHandleIdentifier(), fieldDetails);
+		return true;
+	}
+
+	@Override
 	public boolean visit(TypeDeclaration typeDeclaration) {
 		ITypeBinding binding = typeDeclaration.resolveBinding();
 		if (binding != null) {
@@ -97,11 +106,11 @@ public class OutCodeVisitor extends ASTVisitor {
 	private List<IType> getParameters(List list) {
 		List<IType> params = new ArrayList<IType>();
 		for (Object elem : list) {
-			if (elem instanceof SingleVariableDeclaration){
+			if (elem instanceof SingleVariableDeclaration) {
 				SingleVariableDeclaration param = (SingleVariableDeclaration) elem;
 				Type type = param.getType();
-				if (type != null && type.resolveBinding() != null && type.resolveBinding().getJavaElement() instanceof IType){
-					params.add((IType)type.resolveBinding().getJavaElement());
+				if (type != null && type.resolveBinding() != null && type.resolveBinding().getJavaElement() instanceof IType) {
+					params.add((IType) type.resolveBinding().getJavaElement());
 				}
 			}
 		}
