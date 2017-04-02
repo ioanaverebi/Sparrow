@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="reFactor.feature"
-      label="Feature"
-      version="1.0.0">
+      label="reFactor"
+      version="1.0.1">
 
    <description url="http://www.example.com/description">
       Model based simulations
