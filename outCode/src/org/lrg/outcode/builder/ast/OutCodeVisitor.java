@@ -113,7 +113,7 @@ public class OutCodeVisitor extends ASTVisitor {
 				if (type != null && type.resolveBinding() != null && type.resolveBinding().getJavaElement() instanceof IType) {
 					params.add((IType) type.resolveBinding().getJavaElement());
 				} else {
-					if (type.resolveBinding() != null) {
+					if (type.resolveBinding() != null && type.isPrimitiveType()) {
 						params.add(new PrimitiveTypeHack(type.resolveBinding().getName()));
 					}
 				}
