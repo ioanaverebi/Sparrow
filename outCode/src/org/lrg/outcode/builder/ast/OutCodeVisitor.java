@@ -36,6 +36,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.WhileStatement;
+import org.lrg.outcode.builder.PrimitiveTypeHack;
 
 public class OutCodeVisitor extends ASTVisitor {
 
@@ -111,6 +112,10 @@ public class OutCodeVisitor extends ASTVisitor {
 				Type type = param.getType();
 				if (type != null && type.resolveBinding() != null && type.resolveBinding().getJavaElement() instanceof IType) {
 					params.add((IType) type.resolveBinding().getJavaElement());
+				} else {
+					if (type.resolveBinding() != null) {
+						params.add(new PrimitiveTypeHack(type.resolveBinding().getName()));
+					}
 				}
 			}
 		}
