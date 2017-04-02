@@ -35,6 +35,7 @@ import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
@@ -221,8 +222,8 @@ public class ModelVisitor {
 		String declaration = type.getElementName();
 		try {
 			if (type.getSuperclassName() != null)
-				declaration += " extends "+type.getSuperclassName();
-			if (type.getSuperInterfaceNames().length > 0){
+				declaration += " extends " + type.getSuperclassName();
+			if (type.getSuperInterfaceNames().length > 0) {
 				if (type.isInterface())
 					declaration += " extends ";
 				else
@@ -237,13 +238,13 @@ public class ModelVisitor {
 	}
 
 	private String getComments(ICompilationUnit unit, IMember member) {
-//		try {
-//			ISourceRange range = member.getJavadocRange();
-//			if (range != null)
-//				return unit.getSource().substring(range.getOffset(), range.getOffset()+range.getLength());
-//		} catch (JavaModelException e1) {
-//			e1.printStackTrace();
-//		}
+		try {
+			ISourceRange range = member.getJavadocRange();
+			if (range != null)
+				return unit.getSource().substring(range.getOffset(), range.getOffset() + range.getLength());
+		} catch (JavaModelException e1) {
+			e1.printStackTrace();
+		}
 		return null;
 	}
 
@@ -263,7 +264,7 @@ public class ModelVisitor {
 		String comments = getComments(unit, method);
 		String content = "";
 		if (comments != null)
-			content += addLine(0, comments);
+			content += addLine(indentation, comments);
 		content += addLine(indentation, methodIdentifier);
 		indentation += 1;
 		try {
@@ -316,9 +317,12 @@ public class ModelVisitor {
 			public int compare(IMember m1, IMember m2) {
 				String t1 = m1.getDeclaringType().getElementName();
 				String t2 = m2.getDeclaringType().getElementName();
-				if (t1.equals(t2)) return 0;
-				if (t1.equals(currentType)) return -1;
-				if (t2.equals(currentType)) return 1;
+				if (t1.equals(t2))
+					return 0;
+				if (t1.equals(currentType))
+					return -1;
+				if (t2.equals(currentType))
+					return 1;
 				return t1.compareTo(t2);
 			}
 		});
@@ -345,7 +349,7 @@ public class ModelVisitor {
 		String comments = getComments(unit, field);
 		String content = "";
 		if (comments != null)
-			content += addLine(0, comments);
+			content += addLine(indentation, comments);
 		content += addLine(indentation, getModifier(details.getModifiers()) + field.getElementName());
 		return content;
 	}
