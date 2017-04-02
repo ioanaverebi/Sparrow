@@ -244,7 +244,11 @@ public class ModelVisitor {
 				for (int i = 0; i < superInterfaces.length; i++) {
 					names[i] = getSimpleName(superInterfaces[i]);
 				}
-				declaration += String.join(", ", names);
+				StringJoiner joiner = new StringJoiner(", ");
+				for (String name : names) {
+					joiner.add(name);
+				}
+				declaration += joiner.toString();
 			}
 		} catch (JavaModelException e) {
 			e.printStackTrace();
