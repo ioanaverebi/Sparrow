@@ -36,6 +36,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
    </license>
 
+   <url>
+      <discovery label="xtext" url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+   </url>
+
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
@@ -44,6 +48,7 @@ SOFTWARE.
       <import plugin="org.eclipse.jgit" version="3.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.launching" version="3.8.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext"/>
       <import plugin="reFactor.ide" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="com.google.inject"/>
       <import plugin="org.eclipse.xtext.ui"/>
@@ -64,7 +69,7 @@ SOFTWARE.
       <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.compare"/>
       <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.xtext"/>
+      <import feature="org.eclipse.xtext.sdk" version="2.11.0.v20170201-0242"/>
    </requires>
 
    <plugin
