@@ -2,7 +2,7 @@
 <feature
       id="reFactor.feature"
       label="reFactor"
-      version="1.0.1">
+      version="1.0.2">
 
    <description url="http://www.example.com/description">
       Model based simulations
