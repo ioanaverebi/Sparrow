@@ -117,6 +117,18 @@ public class ModelVisitor {
 				}
 			}
 		}
+		unresolvedTypes.add("Serializable");
+		unresolvedTypes.add("Cloneable");
+		unresolvedTypes.add("PublicCloneable");
+		unresolvedTypes.add("JFrame");
+		unresolvedTypes.add("ActionListener");
+		unresolvedTypes.add("MouseListener");
+		unresolvedTypes.add("MouseMotionListener");
+		unresolvedTypes.add("Printable");
+		unresolvedTypes.add("Transferable");
+		unresolvedTypes.add("ProjectInfo");
+		unresolvedTypes.add("MouseWheelListener");
+		
 		String unresolvedContent = "";
 		for (String unresolved : unresolvedTypes) {
 			unresolvedContent += "class " + unresolved + System.lineSeparator();
