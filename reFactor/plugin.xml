@@ -15,4 +15,28 @@
             name="Compute DSI">
         </command>
 	</extension>
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+       <command
+             commandId="outCode.compute.dsi"
+             label="Compute DSI"
+             style="push">
+          <visibleWhen>
+             <with
+                   variable="activeMenuSelection">
+                <iterate
+                      ifEmpty="false">
+                   <or>
+                      <adapt
+                            type="org.eclipse.core.resources.IProject">
+                      </adapt>
+                   </or>
+                </iterate>
+             </with>
+          </visibleWhen>
+       </command>
+    </menuContribution>
+ </extension>
 </plugin>
