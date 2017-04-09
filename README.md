@@ -22,7 +22,7 @@
 
 ![Design flaws](https://github.com/ioanaverebi/reFactor/blob/master/resources/design_flaws.png "Design flaw markers" )
 
-### reFactor Language
+### Sparrow Language
 The language supports classes, methods and fields. It adheres to the off-side rule (meaning it uses spaces as indentation for blocks, as Python or Coffeescript).
 
 #### File structure
