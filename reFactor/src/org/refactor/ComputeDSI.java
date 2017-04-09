@@ -8,7 +8,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 
 public class ComputeDSI extends AbstractHandler implements IHandler {
@@ -18,7 +17,6 @@ public class ComputeDSI extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		Iterable<IEObjectDescription> exportedObjects = iResourceDescriptions.getExportedObjects();
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("reFactor.ui.TechnicalDebt");
 		} catch (PartInitException e) {
